@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
+import { Role } from '../generated/prisma/client';
 
 @Injectable()
 export class AdminService {
@@ -15,6 +16,13 @@ export class AdminService {
     return this.prisma.user.update({
       where: { id },
       data: { isBanned },
+    });
+  }
+
+  async updateUserRole(id: string, role: Role) {
+    return this.prisma.user.update({
+      where: { id },
+      data: { role },
     });
   }
 

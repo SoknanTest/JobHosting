@@ -5,6 +5,7 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { Role } from '../generated/prisma/client';
+import { UpdateRoleDto } from './dto/update-role.dto';
 
 @ApiTags('admin')
 @ApiBearerAuth()
@@ -24,6 +25,12 @@ export class AdminController {
   @ApiOperation({ summary: 'Ban/unban a user' })
   toggleUserBan(@Param('id') id: string, @Body() data: { isBanned: boolean }) {
     return this.adminService.toggleUserBan(id, data.isBanned);
+  }
+
+  @Patch('users/:id/role')
+  @ApiOperation({ summary: 'Change user role' })
+  updateRole(@Param('id') id: string, @Body() updateRoleDto: UpdateRoleDto) {
+    return this.adminService.updateUserRole(id, updateRoleDto.role);
   }
 
   @Get('jobs')
