@@ -1,15 +1,32 @@
 generator client {
-  provider = "prisma-client-js"
+  provider     = "prisma-client"
+  output       = "../apps/api/src/generated/prisma"
+  moduleFormat = "cjs"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
-enum Role { SEEKER EMPLOYER ADMIN }
-enum JobType { FULL_TIME PART_TIME FREELANCE INTERNSHIP }
-enum ApplicationStatus { PENDING REVIEWED ACCEPTED REJECTED }
+enum Role {
+  SEEKER
+  EMPLOYER
+  ADMIN
+}
+
+enum JobType {
+  FULL_TIME
+  PART_TIME
+  FREELANCE
+  INTERNSHIP
+}
+
+enum ApplicationStatus {
+  PENDING
+  REVIEWED
+  ACCEPTED
+  REJECTED
+}
 
 model User {
   id            String    @id @default(cuid())

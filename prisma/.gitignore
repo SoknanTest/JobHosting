@@ -1,0 +1,8 @@
+# Migrations
+# It's usually recommended to keep migrations in git
+# but if you want to ignore them, uncomment below:
+# migrations/
+
+# SQLite database (if used)
+*.db
+*.db-journal
