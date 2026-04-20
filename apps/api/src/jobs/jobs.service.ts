@@ -4,6 +4,8 @@ import { CreateJobDto } from './dto/create-job.dto';
 import { UpdateJobDto } from './dto/update-job.dto';
 import { QueryJobDto } from './dto/query-job.dto';
 
+import { Prisma } from '../../generated/prisma/client';
+
 @Injectable()
 export class JobsService {
   constructor(private prisma: PrismaService) {}
@@ -24,7 +26,7 @@ export class JobsService {
     const { page = 1, limit = 10, search, category, location, type } = query;
     const skip = (page - 1) * limit;
 
-    const where: any = { isActive: true };
+    const where: Prisma.JobWhereInput = { isActive: true };
 
     if (search) {
       where.OR = [

@@ -5,6 +5,8 @@ import { UpdateProfileDto } from './dto/update-profile.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 
+import { JwtPayload } from '../auth/interfaces/jwt-payload.interface';
+
 @ApiTags('users')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
@@ -14,16 +16,16 @@ export class UsersController {
 
   @Get('me')
   @ApiOperation({ summary: 'Get current user profile' })
-  findMe(@CurrentUser() user: any) {
-    return this.usersService.findMe(user.id);
+  findMe(@CurrentUser() user: JwtPayload) {
+    return this.usersService.findMe(user.sub);
   }
 
   @Patch('me')
   @ApiOperation({ summary: 'Update current user profile' })
   updateProfile(
-    @CurrentUser() user: any,
+    @CurrentUser() user: JwtPayload,
     @Body() updateProfileDto: UpdateProfileDto,
   ) {
-    return this.usersService.updateProfile(user.id, updateProfileDto);
+    return this.usersService.updateProfile(user.sub, updateProfileDto);
   }
 }

@@ -437,6 +437,19 @@ SwaggerModule.setup('api/docs', app, SwaggerModule.createDocument(app, config));
 
 ---
 
+## 🛡️ TypeScript Standards
+
+### TypeScript Rules
+- Never use `any` type — it defeats TypeScript's purpose
+- Use `unknown` for values with uncertain types, then narrow with type guards
+- Use generics for flexible, reusable code
+- Define proper `interface` or `type` for all data shapes
+- `as any` casting is also forbidden
+
+### Project Config
+- `strict: true` and `noImplicitAny: true` are enabled in tsconfig
+- ESLint rule `@typescript-eslint/no-explicit-any` is set to `"error"`
+
 ## ✅ Best Practices
 
 ### Backend

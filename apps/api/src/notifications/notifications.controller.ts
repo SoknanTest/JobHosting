@@ -4,6 +4,8 @@ import { NotificationsService } from './notifications.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 
+import { JwtPayload } from '../auth/interfaces/jwt-payload.interface';
+
 @ApiTags('notifications')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
@@ -13,19 +15,19 @@ export class NotificationsController {
 
   @Get()
   @ApiOperation({ summary: 'Get all my notifications' })
-  findAll(@CurrentUser() user: any) {
-    return this.notificationsService.findAll(user.id);
+  findAll(@CurrentUser() user: JwtPayload) {
+    return this.notificationsService.findAll(user.sub);
   }
 
   @Patch(':id/read')
   @ApiOperation({ summary: 'Mark a notification as read' })
-  markAsRead(@Param('id') id: string, @CurrentUser() user: any) {
-    return this.notificationsService.markAsRead(id, user.id);
+  markAsRead(@Param('id') id: string, @CurrentUser() user: JwtPayload) {
+    return this.notificationsService.markAsRead(id, user.sub);
   }
 
   @Patch('read-all')
   @ApiOperation({ summary: 'Mark all notifications as read' })
-  markAllAsRead(@CurrentUser() user: any) {
-    return this.notificationsService.markAllAsRead(user.id);
+  markAllAsRead(@CurrentUser() user: JwtPayload) {
+    return this.notificationsService.markAllAsRead(user.sub);
   }
 }

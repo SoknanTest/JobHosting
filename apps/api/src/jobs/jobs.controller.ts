@@ -8,7 +8,9 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { Roles } from '../auth/decorators/roles.decorator';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
-import { Role } from '../generated/prisma/client';
+import { Role } from '../../generated/prisma/client';
+
+import { JwtPayload } from '../auth/interfaces/jwt-payload.interface';
 
 @ApiTags('jobs')
 @Controller('jobs')
@@ -20,8 +22,8 @@ export class JobsController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.EMPLOYER, Role.ADMIN)
   @ApiOperation({ summary: 'Create a new job (Employer only)' })
-  create(@CurrentUser() user: any, @Body() createJobDto: CreateJobDto) {
-    return this.jobsService.create(user.id, createJobDto);
+  create(@CurrentUser() user: JwtPayload, @Body() createJobDto: CreateJobDto) {
+    return this.jobsService.create(user.sub, createJobDto);
   }
 
   @Get()
@@ -43,10 +45,10 @@ export class JobsController {
   @ApiOperation({ summary: 'Update job listing' })
   update(
     @Param('id') id: string,
-    @CurrentUser() user: any,
+    @CurrentUser() user: JwtPayload,
     @Body() updateJobDto: UpdateJobDto,
   ) {
-    return this.jobsService.update(id, user.id, updateJobDto, user.role === Role.ADMIN);
+    return this.jobsService.update(id, user.sub, updateJobDto, user.role === Role.ADMIN);
   }
 
   @Delete(':id')
@@ -54,7 +56,7 @@ export class JobsController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(Role.EMPLOYER, Role.ADMIN)
   @ApiOperation({ summary: 'Delete job listing' })
-  remove(@Param('id') id: string, @CurrentUser() user: any) {
-    return this.jobsService.remove(id, user.id, user.role === Role.ADMIN);
+  remove(@Param('id') id: string, @CurrentUser() user: JwtPayload) {
+    return this.jobsService.remove(id, user.sub, user.role === Role.ADMIN);
   }
 }

@@ -11,6 +11,8 @@ import { UseGuards } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '../prisma/prisma.service';
 
+import { JwtPayload } from '../auth/interfaces/jwt-payload.interface';
+
 @WebSocketGateway({
   namespace: 'chat',
   cors: { origin: '*' },
@@ -27,7 +29,7 @@ export class ChatGateway implements OnGatewayConnection {
   async handleConnection(client: Socket) {
     try {
       const token = client.handshake.auth.token;
-      const payload = this.jwtService.verify(token);
+      const payload = this.jwtService.verify(token) as JwtPayload;
       client.data.user = payload;
       client.join(`user_${payload.sub}`);
     } catch (e) {
@@ -40,7 +42,8 @@ export class ChatGateway implements OnGatewayConnection {
     @MessageBody() data: { conversationId: string; content: string },
     @ConnectedSocket() client: Socket,
   ) {
-    const senderId = client.data.user.sub;
+    const user = client.data.user as JwtPayload;
+    const senderId = user.sub;
 
     const message = await this.prisma.message.create({
       data: {
@@ -62,7 +65,6 @@ export class ChatGateway implements OnGatewayConnection {
 
     return message;
   }
-
   @SubscribeMessage('joinConversation')
   handleJoinConversation(
     @MessageBody() data: { conversationId: string },

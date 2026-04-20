@@ -6,6 +6,8 @@ import { LoginDto } from './dto/login.dto';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { GithubAuthGuard } from './guards/github-auth.guard';
 
+import { RequestWithUser } from './interfaces/jwt-payload.interface';
+
 @ApiTags('auth')
 @Controller('auth')
 export class AuthController {
@@ -21,8 +23,8 @@ export class AuthController {
   @Post('login')
   @ApiOperation({ summary: 'Login with email and password' })
   @ApiBody({ type: LoginDto })
-  async login(@Req() req) {
-    return this.authService.login(req.user);
+  async login(@Req() req: RequestWithUser) {
+    return this.authService.login(req.user as any); // Passport local returns User entity, will fix casting in next step
   }
 
   @Get('github')
@@ -35,7 +37,7 @@ export class AuthController {
   @Get('github/callback')
   @UseGuards(GithubAuthGuard)
   @ApiOperation({ summary: 'GitHub OAuth callback' })
-  async githubAuthCallback(@Req() req) {
-    return this.authService.login(req.user);
+  async githubAuthCallback(@Req() req: RequestWithUser) {
+    return this.authService.login(req.user as any);
   }
 }

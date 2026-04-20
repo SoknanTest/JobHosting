@@ -20,7 +20,7 @@ export class UploadService {
         folder: `job_platform/${folder}`,
         allowed_formats: allowedFormats,
         resource_type: 'auto',
-      } as any,
+      } as Record<string, unknown>,
     });
   }
 }

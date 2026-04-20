@@ -23,7 +23,7 @@ import { CloudinaryStorage } from 'multer-storage-cloudinary';
             folder: 'job_platform/general',
             allowed_formats: ['jpg', 'png', 'pdf'],
             resource_type: 'auto',
-          } as any,
+          } as Record<string, unknown>,
         });
         
         return { storage };

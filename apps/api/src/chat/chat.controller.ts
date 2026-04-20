@@ -4,6 +4,8 @@ import { ChatService } from './chat.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
 
+import { JwtPayload } from '../auth/interfaces/jwt-payload.interface';
+
 @ApiTags('chat')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
@@ -13,8 +15,8 @@ export class ChatController {
 
   @Get('conversations')
   @ApiOperation({ summary: 'Get all my conversations' })
-  getConversations(@CurrentUser() user: any) {
-    return this.chatService.getConversations(user.id);
+  getConversations(@CurrentUser() user: JwtPayload) {
+    return this.chatService.getConversations(user.sub);
   }
 
   @Get('conversations/:id/messages')
@@ -25,7 +27,7 @@ export class ChatController {
 
   @Post('conversations')
   @ApiOperation({ summary: 'Start a new conversation' })
-  createConversation(@CurrentUser() user: any, @Body() data: { participantId: string }) {
-    return this.chatService.createConversation([user.id, data.participantId]);
+  createConversation(@CurrentUser() user: JwtPayload, @Body() data: { participantId: string }) {
+    return this.chatService.createConversation([user.sub, data.participantId]);
   }
 }
