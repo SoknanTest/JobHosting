@@ -6,26 +6,26 @@ export class CreateJobDto {
   @ApiProperty({ example: 'Full Stack Developer' })
   @IsString()
   @IsNotEmpty()
-  title: string;
+  title!: string;
 
   @ApiProperty({ example: 'We are looking for a developer...' })
   @IsString()
   @IsNotEmpty()
-  description: string;
+  description!: string;
 
   @ApiProperty({ enum: JobType, example: JobType.FULL_TIME })
   @IsEnum(JobType)
-  type: JobType;
+  type!: JobType;
 
   @ApiProperty({ example: 'IT & Software' })
   @IsString()
   @IsNotEmpty()
-  category: string;
+  category!: string;
 
   @ApiProperty({ example: 'Phnom Penh' })
   @IsString()
   @IsNotEmpty()
-  location: string;
+  location!: string;
 
   @ApiProperty({ example: 1000, required: false })
   @IsInt()
