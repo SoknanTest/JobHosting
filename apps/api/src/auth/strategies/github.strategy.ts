@@ -1,8 +1,9 @@
 import { PassportStrategy } from '@nestjs/passport';
-import { Strategy } from 'passport-github2';
+import { Strategy, Profile } from 'passport-github2';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { AuthService } from '../auth.service';
+import { User } from '../../../generated/prisma/client';
 
 @Injectable()
 export class GithubStrategy extends PassportStrategy(Strategy, 'github') {
@@ -23,8 +24,12 @@ export class GithubStrategy extends PassportStrategy(Strategy, 'github') {
   async validate(
     accessToken: string,
     refreshToken: string,
-    profile: any,
-  ): Promise<any> {
-    return this.authService.validateGithubUser(profile);
+    profile: Profile,
+  ): Promise<User> {
+    return this.authService.validateGithubUser({
+      id: profile.id,
+      emails: profile.emails || [],
+      displayName: profile.displayName,
+    });
   }
 }

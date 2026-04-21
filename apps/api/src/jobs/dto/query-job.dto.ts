@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsOptional, IsInt, Min, IsString } from 'class-validator';
+import { IsOptional, IsInt, Min, IsString, IsEnum } from 'class-validator';
+import { JobType } from '../../../generated/prisma/client';
 
 export class QueryJobDto {
   @ApiProperty({ required: false })
@@ -30,9 +31,10 @@ export class QueryJobDto {
   location?: string;
 
   @ApiProperty({
-    enum: ['FULL_TIME', 'PART_TIME', 'FREELANCE', 'INTERNSHIP'],
+    enum: JobType,
     required: false,
   })
   @IsOptional()
-  type?: any;
+  @IsEnum(JobType)
+  type?: JobType;
 }

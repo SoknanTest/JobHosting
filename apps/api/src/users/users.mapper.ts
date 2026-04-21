@@ -1,4 +1,4 @@
-import { Prisma } from '../../generated/prisma/client';
+import { Prisma, Profile, Company } from '../../generated/prisma/client';
 import {
   UserResponseDto,
   ProfileResponseDto,
@@ -31,9 +31,7 @@ export class UserMapper {
     };
   }
 
-  static toProfileDto(
-    profile: Prisma.ProfileGetPayload<any>,
-  ): ProfileResponseDto {
+  static toProfileDto(profile: Profile): ProfileResponseDto {
     return {
       id: profile.id,
       firstName: profile.firstName,
@@ -47,9 +45,7 @@ export class UserMapper {
     };
   }
 
-  static toCompanyDto(
-    company: Prisma.CompanyGetPayload<any>,
-  ): CompanyResponseDto {
+  static toCompanyDto(company: Company): CompanyResponseDto {
     return {
       id: company.id,
       name: company.name,

@@ -1,5 +1,5 @@
 import { Injectable, ConflictException } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
+import { JwtService, JwtSignOptions } from '@nestjs/jwt';
 import { ConfigService } from '@nestjs/config';
 import { Response } from 'express';
 import { PrismaService } from '../prisma/prisma.service';
@@ -77,7 +77,7 @@ export class AuthService {
           this.configService.get<string>('JWT_REFRESH_SECRET') ||
           'refresh-secret',
         expiresIn: (this.configService.get<string>('JWT_REFRESH_EXPIRES_IN') ||
-          '7d') as any,
+          '7d') as JwtSignOptions['expiresIn'],
       },
     );
 

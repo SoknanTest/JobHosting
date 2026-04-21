@@ -10,5 +10,5 @@ export class CreateApplicationDto {
   @ApiProperty({ example: 'job-id-123' })
   @IsString()
   @IsNotEmpty()
-  jobId: string;
+  jobId!: string;
 }
