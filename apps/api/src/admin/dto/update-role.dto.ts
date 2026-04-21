@@ -5,5 +5,5 @@ import { Role } from '../../../generated/prisma/client';
 export class UpdateRoleDto {
   @ApiProperty({ enum: Role })
   @IsEnum(Role)
-  role: Role;
+  role!: Role;
 }

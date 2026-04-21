@@ -5,5 +5,5 @@ import { ApplicationStatus } from '../../../generated/prisma/client';
 export class UpdateApplicationStatusDto {
   @ApiProperty({ enum: ApplicationStatus })
   @IsEnum(ApplicationStatus)
-  status: ApplicationStatus;
+  status!: ApplicationStatus;
 }
