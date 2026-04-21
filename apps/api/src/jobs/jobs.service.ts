@@ -3,14 +3,14 @@ import { PrismaService } from '../prisma/prisma.service';
 import { CreateJobDto } from './dto/create-job.dto';
 import { UpdateJobDto } from './dto/update-job.dto';
 import { QueryJobDto } from './dto/query-job.dto';
-
+import { jobInclude, JobWithRelations } from './jobs.mapper';
 import { Prisma } from '../../generated/prisma/client';
 
 @Injectable()
 export class JobsService {
   constructor(private prisma: PrismaService) {}
 
-  async create(userId: string, createJobDto: CreateJobDto) {
+  async create(userId: string, createJobDto: CreateJobDto): Promise<JobWithRelations> {
     const company = await this.prisma.company.findUnique({ where: { userId } });
     
     return this.prisma.job.create({
@@ -19,6 +19,7 @@ export class JobsService {
         employerId: userId,
         companyId: company?.id,
       },
+      include: jobInclude,
     });
   }
 
@@ -45,14 +46,7 @@ export class JobsService {
         skip,
         take: limit,
         orderBy: { createdAt: 'desc' },
-        include: {
-          company: true,
-          employer: {
-            select: {
-              profile: true,
-            },
-          },
-        },
+        include: jobInclude,
       }),
     ]);
 
@@ -67,24 +61,22 @@ export class JobsService {
     };
   }
 
-  async findOne(id: string) {
+  async findOne(id: string): Promise<JobWithRelations> {
     const job = await this.prisma.job.findUnique({
       where: { id },
-      include: {
-        company: true,
-        employer: {
-          select: {
-            profile: true,
-          },
-        },
-      },
+      include: jobInclude,
     });
 
     if (!job) throw new NotFoundException('Job not found');
     return job;
   }
 
-  async update(id: string, userId: string, updateJobDto: UpdateJobDto, isAdmin = false) {
+  async update(
+    id: string,
+    userId: string,
+    updateJobDto: UpdateJobDto,
+    isAdmin = false,
+  ): Promise<JobWithRelations> {
     const job = await this.findOne(id);
     
     if (!isAdmin && job.employerId !== userId) {
@@ -94,6 +86,7 @@ export class JobsService {
     return this.prisma.job.update({
       where: { id },
       data: updateJobDto,
+      include: jobInclude,
     });
   }
 

@@ -1,11 +1,13 @@
-import { Controller, Get, Body, Patch, UseGuards } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
+import { Controller, Get, Body, Patch, UseGuards, NotFoundException } from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 import { UpdateProfileDto } from './dto/update-profile.dto';
+import { UserResponseDto, ProfileResponseDto } from './dto/user-response.dto';
+import { UserMapper } from './users.mapper';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
-
 import { JwtPayload } from '../auth/interfaces/jwt-payload.interface';
+import { ErrorResponseDto } from '../common/dto/error-response.dto';
 
 @ApiTags('users')
 @ApiBearerAuth()
@@ -16,16 +18,26 @@ export class UsersController {
 
   @Get('me')
   @ApiOperation({ summary: 'Get current user profile' })
-  findMe(@CurrentUser() user: JwtPayload) {
-    return this.usersService.findMe(user.sub);
+  @ApiResponse({ status: 200, type: UserResponseDto })
+  @ApiResponse({ status: 401, type: ErrorResponseDto })
+  @ApiResponse({ status: 404, type: ErrorResponseDto })
+  @ApiResponse({ status: 500, type: ErrorResponseDto })
+  async findMe(@CurrentUser() user: JwtPayload): Promise<UserResponseDto> {
+    const userData = await this.usersService.findMe(user.sub);
+    return UserMapper.toDto(userData);
   }
 
   @Patch('me')
   @ApiOperation({ summary: 'Update current user profile' })
-  updateProfile(
+  @ApiResponse({ status: 200, type: ProfileResponseDto })
+  @ApiResponse({ status: 401, type: ErrorResponseDto })
+  @ApiResponse({ status: 404, type: ErrorResponseDto })
+  @ApiResponse({ status: 500, type: ErrorResponseDto })
+  async updateProfile(
     @CurrentUser() user: JwtPayload,
     @Body() updateProfileDto: UpdateProfileDto,
-  ) {
-    return this.usersService.updateProfile(user.sub, updateProfileDto);
+  ): Promise<ProfileResponseDto> {
+    const profile = await this.usersService.updateProfile(user.sub, updateProfileDto);
+    return UserMapper.toProfileDto(profile);
   }
 }
