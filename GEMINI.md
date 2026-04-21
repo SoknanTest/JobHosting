@@ -450,6 +450,142 @@ SwaggerModule.setup('api/docs', app, SwaggerModule.createDocument(app, config));
 - `strict: true` and `noImplicitAny: true` are enabled in tsconfig
 - ESLint rule `@typescript-eslint/no-explicit-any` is set to `"error"`
 
+## 🏗️ NestJS Architecture Standards
+
+### 1. Mapper Pattern for Prisma → DTO Transformation
+
+Always use a dedicated **Mapper class** to transform Prisma entities into response DTOs.
+Never transform data inline inside services or controllers.
+
+**File structure:**
+```
+src/
+└── jobs/
+    ├── jobs.controller.ts
+    ├── jobs.service.ts
+    ├── jobs.mapper.ts
+    ├── dto/
+    │   ├── create-job.dto.ts
+    │   ├── update-job.dto.ts
+    │   ├── job-response.dto.ts
+    │   └── ...
+```
+
+**Mapper pattern:**
+```typescript
+// jobs.mapper.ts
+import { Prisma } from '../../generated/prisma/client';
+import { JobResponseDto } from './dto/job-response.dto';
+
+// 1. Define the include shape as const
+const jobInclude = {
+  company: {
+    select: { id: true, name: true, logo: true },
+  },
+  employer: {
+    select: { id: true, email: true },
+  },
+} as const;
+
+// 2. Derive the type from Prisma using typeof
+export type JobWithRelations = Prisma.JobGetPayload<{
+  include: typeof jobInclude;
+}>;
+
+// 3. Export the include so service can reuse it
+export { jobInclude };
+
+// 4. Mapper class with static method
+export class JobMapper {
+  static toDto(job: JobWithRelations): JobResponseDto {
+    return {
+      id: job.id,
+      title: job.title,
+      description: job.description,
+      type: job.type,
+      category: job.category,
+      location: job.location,
+      salaryMin: job.salaryMin,
+      salaryMax: job.salaryMax,
+      deadline: job.deadline,
+      isActive: job.isActive,
+      createdAt: job.createdAt,
+      updatedAt: job.updatedAt,
+      company: job.company ? {
+        id: job.company.id,
+        name: job.company.name,
+        logo: job.company.logo,
+      } : undefined,
+    };
+  }
+}
+```
+
+**Rules:**
+- Define `include` shape as `const` in the mapper file.
+- Use `Prisma.XxxGetPayload<{ include: typeof xxxInclude }>` for full type safety.
+- Export both `xxxInclude` and the `XxxMapper` class from the same file.
+- Mapper methods are always `static`.
+- Services import `xxxInclude` from the mapper and pass it to Prisma queries.
+- Controllers call `XxxMapper.toDto(entity)` or `entities.map(e => XxxMapper.toDto(e))`.
+
+---
+
+### 2. DTO Best Practices
+
+**Required properties** → use `!` (definite assignment assertion)
+**Optional properties** → use `?`
+
+```typescript
+export class JobResponseDto {
+  @ApiProperty()
+  id!: string;
+
+  @ApiProperty({ required: false })
+  salaryMin?: number;
+}
+```
+
+---
+
+### 3. Controller Best Practices
+
+Always follow this structure for every controller method:
+
+```typescript
+// jobs.controller.ts
+@ApiTags('jobs')
+@Controller('jobs')
+export class JobsController {
+  constructor(private readonly jobsService: JobsService) {}
+
+  @Get(':id')
+  @ApiOperation({ summary: 'Get job by id' })
+  @ApiParam({ name: 'id', description: 'Job UUID or CUID' })
+  @ApiResponse({ status: 200, type: JobResponseDto })
+  @ApiResponse({ status: 404, type: ErrorResponseDto })
+  @ApiResponse({ status: 500, type: ErrorResponseDto })
+  async findOne(@Param('id') id: string): Promise<JobResponseDto> {
+    const job = await this.jobsService.findOne(id);
+    if (!job) {
+      throw new NotFoundException('Job not found');
+    }
+    return JobMapper.toDto(job);
+  }
+}
+```
+
+**Controller Rules:**
+- Always add `@ApiTags('ModuleName')` on the controller class.
+- Always add `@ApiBearerAuth()` on protected routes.
+- Always add `@ApiOperation({ summary: '...' })` on every method.
+- Always add `@ApiParam` for every route param.
+- Always add `@ApiQuery` for every optional query param.
+- Always declare all possible `@ApiResponse` statuses (use `ErrorResponseDto` for errors).
+- Never return raw Prisma objects — always go through the Mapper.
+
+---
+
 ## ✅ Best Practices
 
 ### Backend
@@ -509,3 +645,7 @@ When helping with this project, ALWAYS:
 8. Every new UI feature needs BOTH en.json and km.json translations
 9. Ask which role(s) a feature applies to before generating code
 10. Validate all inputs, guard all routes, never expose passwords or tokens
+11. **Mapper Pattern**: Always use the Mapper pattern (Prisma include const + PayloadType + Mapper class) for Prisma → DTO transformation.
+12. **No Inline Transformation**: Never transform Prisma data inline in services or controllers.
+13. **DTO Field Assertions**: Use `!` for required fields and `?` for optional fields in all DTOs.
+14. **Full Controller Docs**: Ensure every controller method has `@ApiOperation` and `@ApiResponse` for all relevant status codes.
