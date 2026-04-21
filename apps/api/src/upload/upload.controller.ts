@@ -7,9 +7,18 @@ import {
   BadRequestException,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ApiTags, ApiOperation, ApiBearerAuth, ApiConsumes, ApiBody } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiConsumes,
+  ApiBody,
+  ApiResponse,
+} from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { UploadService } from './upload.service';
+import { UploadResponseDto } from './dto/upload-response.dto';
+import { ErrorResponseDto } from '../common/dto/error-response.dto';
 
 @ApiTags('upload')
 @ApiBearerAuth()
@@ -30,7 +39,11 @@ export class UploadController {
     },
   })
   @ApiOperation({ summary: 'Upload an image' })
-  uploadImage(@UploadedFile() file: Express.Multer.File) {
+  @ApiResponse({ status: 201, type: UploadResponseDto })
+  @ApiResponse({ status: 400, type: ErrorResponseDto })
+  @ApiResponse({ status: 401, type: ErrorResponseDto })
+  @ApiResponse({ status: 500, type: ErrorResponseDto })
+  uploadImage(@UploadedFile() file: Express.Multer.File): UploadResponseDto {
     if (!file) throw new BadRequestException('No file uploaded');
     return { url: file.path };
   }
@@ -47,7 +60,11 @@ export class UploadController {
     },
   })
   @ApiOperation({ summary: 'Upload a PDF' })
-  uploadPdf(@UploadedFile() file: Express.Multer.File) {
+  @ApiResponse({ status: 201, type: UploadResponseDto })
+  @ApiResponse({ status: 400, type: ErrorResponseDto })
+  @ApiResponse({ status: 401, type: ErrorResponseDto })
+  @ApiResponse({ status: 500, type: ErrorResponseDto })
+  uploadPdf(@UploadedFile() file: Express.Multer.File): UploadResponseDto {
     if (!file) throw new BadRequestException('No file uploaded');
     return { url: file.path };
   }

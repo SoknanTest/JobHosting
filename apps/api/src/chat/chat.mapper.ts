@@ -6,6 +6,16 @@ import {
 } from './dto/chat-response.dto';
 import { UserMapper } from '../users/users.mapper';
 
+const messageInclude = {
+  sender: {
+    include: { profile: true },
+  },
+} as const;
+
+export type MessageWithRelations = Prisma.MessageGetPayload<{
+  include: typeof messageInclude;
+}>;
+
 const conversationInclude = {
   participants: {
     include: {
@@ -17,6 +27,7 @@ const conversationInclude = {
   messages: {
     take: 1,
     orderBy: { createdAt: 'desc' },
+    include: messageInclude,
   },
 } as const;
 
@@ -24,31 +35,35 @@ export type ConversationWithRelations = Prisma.ConversationGetPayload<{
   include: typeof conversationInclude;
 }>;
 
-export { conversationInclude };
+export { conversationInclude, messageInclude };
 
 export class ChatMapper {
-  static toConversationDto(conversation: ConversationWithRelations): ConversationResponseDto {
+  static toConversationDto(
+    conversation: ConversationWithRelations,
+  ): ConversationResponseDto {
     return {
       id: conversation.id,
       createdAt: conversation.createdAt,
       participants: conversation.participants.map(
         (p): ConversationParticipantResponseDto => ({
           userId: p.userId,
-          profile: p.user.profile ? UserMapper.toProfileDto(p.user.profile) : undefined,
+          profile: p.user.profile
+            ? UserMapper.toProfileDto(p.user.profile)
+            : undefined,
         }),
       ),
-      messages: conversation.messages.map((m) => ChatMapper.toMessageDto(m as any)),
+      messages: conversation.messages.map((m) => ChatMapper.toMessageDto(m)),
     };
   }
 
-  static toMessageDto(message: Prisma.MessageGetPayload<{ include: { sender: { include: { profile: true } } } }>): MessageResponseDto {
+  static toMessageDto(message: MessageWithRelations): MessageResponseDto {
     return {
       id: message.id,
       content: message.content,
       createdAt: message.createdAt,
       senderId: message.senderId,
-      senderProfile: (message as any).sender?.profile
-        ? UserMapper.toProfileDto((message as any).sender.profile)
+      senderProfile: message.sender?.profile
+        ? UserMapper.toProfileDto(message.sender.profile)
         : undefined,
     };
   }

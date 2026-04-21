@@ -1,6 +1,11 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { conversationInclude, ConversationWithRelations } from './chat.mapper';
+import {
+  conversationInclude,
+  ConversationWithRelations,
+  messageInclude,
+  MessageWithRelations,
+} from './chat.mapper';
 
 @Injectable()
 export class ChatService {
@@ -18,21 +23,17 @@ export class ChatService {
     });
   }
 
-  async getMessages(conversationId: string) {
+  async getMessages(conversationId: string): Promise<MessageWithRelations[]> {
     return this.prisma.message.findMany({
       where: { conversationId },
       orderBy: { createdAt: 'asc' },
-      include: {
-        sender: {
-          include: {
-            profile: true,
-          },
-        },
-      },
+      include: messageInclude,
     });
   }
 
-  async createConversation(participantIds: string[]): Promise<ConversationWithRelations> {
+  async createConversation(
+    participantIds: string[],
+  ): Promise<ConversationWithRelations> {
     return this.prisma.conversation.create({
       data: {
         participants: {

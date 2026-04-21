@@ -12,13 +12,19 @@ export class GithubStrategy extends PassportStrategy(Strategy, 'github') {
   ) {
     super({
       clientID: configService.get<string>('GITHUB_CLIENT_ID') || 'placeholder',
-      clientSecret: configService.get<string>('GITHUB_CLIENT_SECRET') || 'placeholder',
-      callbackURL: configService.get<string>('GITHUB_CALLBACK_URL') || 'placeholder',
+      clientSecret:
+        configService.get<string>('GITHUB_CLIENT_SECRET') || 'placeholder',
+      callbackURL:
+        configService.get<string>('GITHUB_CALLBACK_URL') || 'placeholder',
       scope: ['user:email'],
     });
   }
 
-  async validate(accessToken: string, refreshToken: string, profile: any): Promise<any> {
+  async validate(
+    accessToken: string,
+    refreshToken: string,
+    profile: any,
+  ): Promise<any> {
     return this.authService.validateGithubUser(profile);
   }
 }

@@ -7,7 +7,10 @@ import {
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateApplicationDto } from './dto/create-application.dto';
 import { UpdateApplicationStatusDto } from './dto/update-application-status.dto';
-import { applicationInclude, ApplicationWithRelations } from './applications.mapper';
+import {
+  applicationInclude,
+  ApplicationWithRelations,
+} from './applications.mapper';
 
 @Injectable()
 export class ApplicationsService {
@@ -43,7 +46,9 @@ export class ApplicationsService {
     });
   }
 
-  async findMyApplications(userId: string): Promise<ApplicationWithRelations[]> {
+  async findMyApplications(
+    userId: string,
+  ): Promise<ApplicationWithRelations[]> {
     return this.prisma.application.findMany({
       where: { seekerId: userId },
       include: applicationInclude,

@@ -16,7 +16,9 @@ export class AuthService {
   async register(registerDto: RegisterDto) {
     const { email, password, firstName, lastName } = registerDto;
 
-    const existingUser = await this.prisma.user.findUnique({ where: { email } });
+    const existingUser = await this.prisma.user.findUnique({
+      where: { email },
+    });
     if (existingUser) {
       throw new ConflictException('Email already exists');
     }
@@ -40,21 +42,29 @@ export class AuthService {
       },
     });
 
-    const { password: _, ...userWithoutPassword } = user;
+    const { password: _password, ...userWithoutPassword } = user;
     return userWithoutPassword;
   }
 
-  async validateUser(email: string, pass: string): Promise<Omit<User, 'password'> | null> {
+  async validateUser(
+    email: string,
+    pass: string,
+  ): Promise<Omit<User, 'password'> | null> {
     const user = await this.prisma.user.findUnique({ where: { email } });
     if (user && user.password && (await bcrypt.compare(pass, user.password))) {
-      const { password: _, ...result } = user;
+      const { password: _password, ...result } = user;
       return result;
     }
     return null;
   }
 
-  async login(user: User) {
-    const payload: JwtPayload = { email: user.email, sub: user.id, role: user.role };
+  login(user: User) {
+    const payload: JwtPayload = {
+      id: user.id,
+      email: user.email,
+      sub: user.id,
+      role: user.role,
+    };
     return {
       access_token: this.jwtService.sign(payload),
       user: {
@@ -65,7 +75,25 @@ export class AuthService {
     };
   }
 
-  async validateGithubUser(profile: { id: string; emails: { value: string }[]; displayName?: string }) {
+  logout() {
+    // In a real app, you might invalidate the refresh token in DB/Redis
+    return { message: 'Logged out successfully' };
+  }
+
+  refresh(user: User) {
+    return this.login(user);
+  }
+
+  verifyEmail(_token: string) {
+    // Placeholder for email verification logic
+    return { message: 'Email verified successfully' };
+  }
+
+  async validateGithubUser(profile: {
+    id: string;
+    emails: { value: string }[];
+    displayName?: string;
+  }) {
     const { id, emails, displayName } = profile;
     const email = emails[0].value;
 

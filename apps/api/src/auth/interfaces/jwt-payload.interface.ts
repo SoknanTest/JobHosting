@@ -1,11 +1,12 @@
-import { Role } from '../../../generated/prisma/client';
+import { Role, User } from '../../../generated/prisma/client';
 
 export class JwtPayload {
-  email: string;
-  sub: string;
-  role: Role;
+  id!: string;
+  email!: string;
+  sub!: string;
+  role!: Role;
 }
 
-export class RequestWithUser extends Request {
-  user: JwtPayload;
+export interface RequestWithUser extends Request {
+  user: User | JwtPayload;
 }

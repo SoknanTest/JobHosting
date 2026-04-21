@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
+import {
+  Injectable,
+  NotFoundException,
+  ForbiddenException,
+} from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateJobDto } from './dto/create-job.dto';
 import { UpdateJobDto } from './dto/update-job.dto';
@@ -10,9 +14,12 @@ import { Prisma } from '../../generated/prisma/client';
 export class JobsService {
   constructor(private prisma: PrismaService) {}
 
-  async create(userId: string, createJobDto: CreateJobDto): Promise<JobWithRelations> {
+  async create(
+    userId: string,
+    createJobDto: CreateJobDto,
+  ): Promise<JobWithRelations> {
     const company = await this.prisma.company.findUnique({ where: { userId } });
-    
+
     return this.prisma.job.create({
       data: {
         ...createJobDto,
@@ -78,7 +85,7 @@ export class JobsService {
     isAdmin = false,
   ): Promise<JobWithRelations> {
     const job = await this.findOne(id);
-    
+
     if (!isAdmin && job.employerId !== userId) {
       throw new ForbiddenException('You are not the owner of this job');
     }
@@ -92,7 +99,7 @@ export class JobsService {
 
   async remove(id: string, userId: string, isAdmin = false) {
     const job = await this.findOne(id);
-    
+
     if (!isAdmin && job.employerId !== userId) {
       throw new ForbiddenException('You are not the owner of this job');
     }

@@ -1,7 +1,13 @@
-import { Controller, Get, Body, Patch, UseGuards, NotFoundException } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
+import { Controller, Get, Body, Patch, UseGuards } from '@nestjs/common';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+} from '@nestjs/swagger';
 import { UsersService } from './users.service';
 import { UpdateProfileDto } from './dto/update-profile.dto';
+import { UpdateFileDto } from './dto/update-file.dto';
 import { UserResponseDto, ProfileResponseDto } from './dto/user-response.dto';
 import { UserMapper } from './users.mapper';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
@@ -37,7 +43,42 @@ export class UsersController {
     @CurrentUser() user: JwtPayload,
     @Body() updateProfileDto: UpdateProfileDto,
   ): Promise<ProfileResponseDto> {
-    const profile = await this.usersService.updateProfile(user.sub, updateProfileDto);
+    const profile = await this.usersService.updateProfile(
+      user.sub,
+      updateProfileDto,
+    );
+    return UserMapper.toProfileDto(profile);
+  }
+
+  @Patch('me/avatar')
+  @ApiOperation({ summary: 'Update current user avatar' })
+  @ApiResponse({ status: 200, type: ProfileResponseDto })
+  @ApiResponse({ status: 401, type: ErrorResponseDto })
+  @ApiResponse({ status: 500, type: ErrorResponseDto })
+  async updateAvatar(
+    @CurrentUser() user: JwtPayload,
+    @Body() updateFileDto: UpdateFileDto,
+  ): Promise<ProfileResponseDto> {
+    const profile = await this.usersService.updateAvatar(
+      user.sub,
+      updateFileDto.url,
+    );
+    return UserMapper.toProfileDto(profile);
+  }
+
+  @Patch('me/cv')
+  @ApiOperation({ summary: 'Update current user CV' })
+  @ApiResponse({ status: 200, type: ProfileResponseDto })
+  @ApiResponse({ status: 401, type: ErrorResponseDto })
+  @ApiResponse({ status: 500, type: ErrorResponseDto })
+  async updateCv(
+    @CurrentUser() user: JwtPayload,
+    @Body() updateFileDto: UpdateFileDto,
+  ): Promise<ProfileResponseDto> {
+    const profile = await this.usersService.updateCv(
+      user.sub,
+      updateFileDto.url,
+    );
     return UserMapper.toProfileDto(profile);
   }
 }

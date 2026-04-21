@@ -29,7 +29,9 @@ export class ApplicationMapper {
       jobId: application.jobId,
       job: application.job ? JobMapper.toDto(application.job) : undefined,
       seekerId: application.seekerId,
-      seeker: application.seeker ? UserMapper.toDto(application.seeker) : undefined,
+      seeker: application.seeker
+        ? UserMapper.toDto(application.seeker)
+        : undefined,
     };
   }
 }

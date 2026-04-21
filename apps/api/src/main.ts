@@ -33,7 +33,7 @@ async function bootstrap() {
     .addTag('upload')
     .addTag('admin')
     .build();
-  
+
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api/docs', app, document);
 

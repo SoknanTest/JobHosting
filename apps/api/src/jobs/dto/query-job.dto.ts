@@ -29,7 +29,10 @@ export class QueryJobDto {
   @IsString()
   location?: string;
 
-  @ApiProperty({ enum: ['FULL_TIME', 'PART_TIME', 'FREELANCE', 'INTERNSHIP'], required: false })
+  @ApiProperty({
+    enum: ['FULL_TIME', 'PART_TIME', 'FREELANCE', 'INTERNSHIP'],
+    required: false,
+  })
   @IsOptional()
   type?: any;
 }

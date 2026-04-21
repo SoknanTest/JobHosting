@@ -21,7 +21,10 @@ import { JobsService } from './jobs.service';
 import { CreateJobDto } from './dto/create-job.dto';
 import { UpdateJobDto } from './dto/update-job.dto';
 import { QueryJobDto } from './dto/query-job.dto';
-import { JobResponseDto, PaginatedJobResponseDto } from './dto/job-response.dto';
+import {
+  JobResponseDto,
+  PaginatedJobResponseDto,
+} from './dto/job-response.dto';
 import { JobMapper } from './jobs.mapper';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { RolesGuard } from '../auth/guards/roles.guard';
@@ -30,11 +33,18 @@ import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { Role } from '../../generated/prisma/client';
 import { JwtPayload } from '../auth/interfaces/jwt-payload.interface';
 import { ErrorResponseDto } from '../common/dto/error-response.dto';
+import { ApplicationsService } from '../applications/applications.service';
+import { ApplicationResponseDto } from '../applications/dto/application-response.dto';
+import { ApplicationMapper } from '../applications/applications.mapper';
+import { CreateApplicationDto } from '../applications/dto/create-application.dto';
 
 @ApiTags('jobs')
 @Controller('jobs')
 export class JobsController {
-  constructor(private readonly jobsService: JobsService) {}
+  constructor(
+    private readonly jobsService: JobsService,
+    private readonly applicationsService: ApplicationsService,
+  ) {}
 
   @Post()
   @ApiBearerAuth()
@@ -120,5 +130,50 @@ export class JobsController {
     @CurrentUser() user: JwtPayload,
   ): Promise<void> {
     await this.jobsService.remove(id, user.sub, user.role === Role.ADMIN);
+  }
+
+  @Post(':id/apply')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.SEEKER)
+  @ApiOperation({ summary: 'Apply for a job (Seeker only)' })
+  @ApiParam({ name: 'id', description: 'Job CUID' })
+  @ApiResponse({ status: 201, type: ApplicationResponseDto })
+  @ApiResponse({ status: 401, type: ErrorResponseDto })
+  @ApiResponse({ status: 403, type: ErrorResponseDto })
+  @ApiResponse({ status: 409, type: ErrorResponseDto })
+  @ApiResponse({ status: 500, type: ErrorResponseDto })
+  async apply(
+    @Param('id') id: string,
+    @CurrentUser() user: JwtPayload,
+    @Body() createApplicationDto: CreateApplicationDto,
+  ): Promise<ApplicationResponseDto> {
+    const application = await this.applicationsService.create(user.sub, {
+      ...createApplicationDto,
+      jobId: id,
+    });
+    return ApplicationMapper.toDto(application);
+  }
+
+  @Get(':id/applicants')
+  @ApiBearerAuth()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  @Roles(Role.EMPLOYER)
+  @ApiOperation({ summary: 'Get applicants for a job (Employer only)' })
+  @ApiParam({ name: 'id', description: 'Job CUID' })
+  @ApiResponse({ status: 200, type: [ApplicationResponseDto] })
+  @ApiResponse({ status: 401, type: ErrorResponseDto })
+  @ApiResponse({ status: 403, type: ErrorResponseDto })
+  @ApiResponse({ status: 404, type: ErrorResponseDto })
+  @ApiResponse({ status: 500, type: ErrorResponseDto })
+  async findJobApplicants(
+    @Param('id') id: string,
+    @CurrentUser() user: JwtPayload,
+  ): Promise<ApplicationResponseDto[]> {
+    const applications = await this.applicationsService.findJobApplicants(
+      id,
+      user.sub,
+    );
+    return applications.map((app) => ApplicationMapper.toDto(app));
   }
 }

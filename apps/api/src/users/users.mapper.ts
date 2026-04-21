@@ -1,5 +1,9 @@
 import { Prisma } from '../../generated/prisma/client';
-import { UserResponseDto, ProfileResponseDto, CompanyResponseDto } from './dto/user-response.dto';
+import {
+  UserResponseDto,
+  ProfileResponseDto,
+  CompanyResponseDto,
+} from './dto/user-response.dto';
 
 const userInclude = {
   profile: true,
@@ -27,7 +31,9 @@ export class UserMapper {
     };
   }
 
-  static toProfileDto(profile: Prisma.ProfileGetPayload<any>): ProfileResponseDto {
+  static toProfileDto(
+    profile: Prisma.ProfileGetPayload<any>,
+  ): ProfileResponseDto {
     return {
       id: profile.id,
       firstName: profile.firstName,
@@ -41,7 +47,9 @@ export class UserMapper {
     };
   }
 
-  static toCompanyDto(company: Prisma.CompanyGetPayload<any>): CompanyResponseDto {
+  static toCompanyDto(
+    company: Prisma.CompanyGetPayload<any>,
+  ): CompanyResponseDto {
     return {
       id: company.id,
       name: company.name,

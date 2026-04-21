@@ -1,7 +1,16 @@
 import { Controller, Get, Param, Post, Body, UseGuards } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiBearerAuth, ApiResponse, ApiParam } from '@nestjs/swagger';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiBearerAuth,
+  ApiResponse,
+  ApiParam,
+} from '@nestjs/swagger';
 import { ChatService } from './chat.service';
-import { ConversationResponseDto, MessageResponseDto } from './dto/chat-response.dto';
+import {
+  ConversationResponseDto,
+  MessageResponseDto,
+} from './dto/chat-response.dto';
 import { ChatMapper } from './chat.mapper';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CurrentUser } from '../auth/decorators/current-user.decorator';
@@ -20,7 +29,9 @@ export class ChatController {
   @ApiResponse({ status: 200, type: [ConversationResponseDto] })
   @ApiResponse({ status: 401, type: ErrorResponseDto })
   @ApiResponse({ status: 500, type: ErrorResponseDto })
-  async getConversations(@CurrentUser() user: JwtPayload): Promise<ConversationResponseDto[]> {
+  async getConversations(
+    @CurrentUser() user: JwtPayload,
+  ): Promise<ConversationResponseDto[]> {
     const conversations = await this.chatService.getConversations(user.sub);
     return conversations.map((c) => ChatMapper.toConversationDto(c));
   }
@@ -34,7 +45,7 @@ export class ChatController {
   @ApiResponse({ status: 500, type: ErrorResponseDto })
   async getMessages(@Param('id') id: string): Promise<MessageResponseDto[]> {
     const messages = await this.chatService.getMessages(id);
-    return messages.map((m) => ChatMapper.toMessageDto(m as any));
+    return messages.map((m) => ChatMapper.toMessageDto(m));
   }
 
   @Post('conversations')

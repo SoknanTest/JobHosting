@@ -29,7 +29,7 @@ export class ChatGateway implements OnGatewayConnection {
   async handleConnection(client: Socket) {
     try {
       const token = client.handshake.auth.token;
-      const payload = this.jwtService.verify(token) as JwtPayload;
+      const payload = this.jwtService.verify(token);
       client.data.user = payload;
       client.join(`user_${payload.sub}`);
     } catch (e) {

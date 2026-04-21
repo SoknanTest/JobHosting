@@ -33,7 +33,10 @@ export class UpdateProfileDto {
   @IsOptional()
   cvUrl?: string;
 
-  @ApiProperty({ example: 'https://cloudinary.com/avatar.jpg', required: false })
+  @ApiProperty({
+    example: 'https://cloudinary.com/avatar.jpg',
+    required: false,
+  })
   @IsUrl()
   @IsOptional()
   avatar?: string;

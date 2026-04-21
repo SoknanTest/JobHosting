@@ -1,12 +1,4 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Patch,
-  Param,
-  UseGuards,
-} from '@nestjs/common';
+import { Controller, Get, Body, Patch, Param, UseGuards } from '@nestjs/common';
 import {
   ApiTags,
   ApiOperation,
@@ -15,7 +7,6 @@ import {
   ApiParam,
 } from '@nestjs/swagger';
 import { ApplicationsService } from './applications.service';
-import { CreateApplicationDto } from './dto/create-application.dto';
 import { UpdateApplicationStatusDto } from './dto/update-application-status.dto';
 import { ApplicationResponseDto } from './dto/application-response.dto';
 import { ApplicationMapper } from './applications.mapper';
@@ -34,25 +25,6 @@ import { ErrorResponseDto } from '../common/dto/error-response.dto';
 export class ApplicationsController {
   constructor(private readonly applicationsService: ApplicationsService) {}
 
-  @Post()
-  @Roles(Role.SEEKER)
-  @ApiOperation({ summary: 'Apply for a job (Seeker only)' })
-  @ApiResponse({ status: 201, type: ApplicationResponseDto })
-  @ApiResponse({ status: 401, type: ErrorResponseDto })
-  @ApiResponse({ status: 403, type: ErrorResponseDto })
-  @ApiResponse({ status: 409, type: ErrorResponseDto })
-  @ApiResponse({ status: 500, type: ErrorResponseDto })
-  async create(
-    @CurrentUser() user: JwtPayload,
-    @Body() createApplicationDto: CreateApplicationDto,
-  ): Promise<ApplicationResponseDto> {
-    const application = await this.applicationsService.create(
-      user.sub,
-      createApplicationDto,
-    );
-    return ApplicationMapper.toDto(application);
-  }
-
   @Get('mine')
   @Roles(Role.SEEKER)
   @ApiOperation({ summary: 'Get my applications' })
@@ -62,25 +34,7 @@ export class ApplicationsController {
   async findMyApplications(
     @CurrentUser() user: JwtPayload,
   ): Promise<ApplicationResponseDto[]> {
-    const applications = await this.applicationsService.findMyApplications(user.sub);
-    return applications.map((app) => ApplicationMapper.toDto(app));
-  }
-
-  @Get('job/:jobId')
-  @Roles(Role.EMPLOYER)
-  @ApiOperation({ summary: 'Get applicants for a job (Employer only)' })
-  @ApiParam({ name: 'jobId', description: 'Job CUID' })
-  @ApiResponse({ status: 200, type: [ApplicationResponseDto] })
-  @ApiResponse({ status: 401, type: ErrorResponseDto })
-  @ApiResponse({ status: 403, type: ErrorResponseDto })
-  @ApiResponse({ status: 404, type: ErrorResponseDto })
-  @ApiResponse({ status: 500, type: ErrorResponseDto })
-  async findJobApplicants(
-    @Param('jobId') jobId: string,
-    @CurrentUser() user: JwtPayload,
-  ): Promise<ApplicationResponseDto[]> {
-    const applications = await this.applicationsService.findJobApplicants(
-      jobId,
+    const applications = await this.applicationsService.findMyApplications(
       user.sub,
     );
     return applications.map((app) => ApplicationMapper.toDto(app));

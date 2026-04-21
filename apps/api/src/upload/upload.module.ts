@@ -16,7 +16,7 @@ import { CloudinaryStorage } from 'multer-storage-cloudinary';
           api_key: configService.get('CLOUDINARY_API_KEY'),
           api_secret: configService.get('CLOUDINARY_API_SECRET'),
         });
-        
+
         const storage = new CloudinaryStorage({
           cloudinary: cloudinary,
           params: {
@@ -25,7 +25,7 @@ import { CloudinaryStorage } from 'multer-storage-cloudinary';
             resource_type: 'auto',
           } as Record<string, unknown>,
         });
-        
+
         return { storage };
       },
       inject: [ConfigService],
