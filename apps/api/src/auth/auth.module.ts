@@ -31,6 +31,6 @@ import { GithubStrategy } from './strategies/github.strategy';
     GithubStrategy,
   ],
   controllers: [AuthController],
-  exports: [AuthService],
+  exports: [AuthService, JwtModule],
 })
 export class AuthModule {}

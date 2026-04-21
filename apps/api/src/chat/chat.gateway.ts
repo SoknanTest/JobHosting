@@ -5,9 +5,10 @@ import {
   ConnectedSocket,
   WebSocketServer,
   OnGatewayConnection,
+  OnGatewayDisconnect,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
-import { UseGuards } from '@nestjs/common';
+import { Logger } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '../prisma/prisma.service';
 
@@ -15,26 +16,50 @@ import { JwtPayload } from '../auth/interfaces/jwt-payload.interface';
 
 @WebSocketGateway({
   namespace: 'chat',
-  cors: { origin: '*' },
+  cors: {
+    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+    credentials: true,
+  },
 })
-export class ChatGateway implements OnGatewayConnection {
+export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer()
-  server: Server;
+  private readonly server!: Server;
+
+  private readonly logger = new Logger(ChatGateway.name);
 
   constructor(
-    private jwtService: JwtService,
-    private prisma: PrismaService,
+    private readonly jwtService: JwtService,
+    private readonly prisma: PrismaService,
   ) {}
 
-  async handleConnection(client: Socket) {
+  async handleConnection(client: Socket): Promise<void> {
     try {
-      const token = client.handshake.auth.token;
-      const payload = this.jwtService.verify(token);
+      const token = client.handshake.auth.token as string | undefined;
+
+      if (!token) {
+        this.logger.warn(`Client ${client.id} connected without token`);
+        client.disconnect();
+        return;
+      }
+
+      const payload = this.jwtService.verify<JwtPayload>(token);
       client.data.user = payload;
-      client.join(`user_${payload.sub}`);
-    } catch (e) {
+      await client.join(`user_${payload.sub}`);
+      this.logger.log(
+        `Client ${client.id} (user: ${payload.sub}) connected to chat`,
+      );
+    } catch (error: unknown) {
+      const errorMessage =
+        error instanceof Error ? error.message : String(error);
+      this.logger.error(
+        `Chat authentication failed for client ${client.id}: ${errorMessage}`,
+      );
       client.disconnect();
     }
+  }
+
+  handleDisconnect(client: Socket): void {
+    this.logger.log(`Client ${client.id} disconnected from chat`);
   }
 
   @SubscribeMessage('sendMessage')
