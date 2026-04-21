@@ -1,5 +1,7 @@
 import { Injectable, ConflictException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { ConfigService } from '@nestjs/config';
+import { Response } from 'express';
 import { PrismaService } from '../prisma/prisma.service';
 import { RegisterDto } from './dto/register.dto';
 import * as bcrypt from 'bcrypt';
@@ -11,6 +13,7 @@ export class AuthService {
   constructor(
     private prisma: PrismaService,
     private jwtService: JwtService,
+    private configService: ConfigService,
   ) {}
 
   async register(registerDto: RegisterDto) {
@@ -58,15 +61,36 @@ export class AuthService {
     return null;
   }
 
-  login(user: User) {
+  async login(user: User, response: Response) {
     const payload: JwtPayload = {
       id: user.id,
       email: user.email,
       sub: user.id,
       role: user.role,
     };
+
+    const accessToken = this.jwtService.sign({ ...payload });
+    const refreshToken = this.jwtService.sign(
+      { ...payload },
+      {
+        secret:
+          this.configService.get<string>('JWT_REFRESH_SECRET') ||
+          'refresh-secret',
+        expiresIn: (this.configService.get<string>('JWT_REFRESH_EXPIRES_IN') ||
+          '7d') as any,
+      },
+    );
+
+    // Set refresh token in httpOnly cookie
+    response.cookie('refresh_token', refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+    });
+
     return {
-      access_token: this.jwtService.sign(payload),
+      access_token: accessToken,
       user: {
         id: user.id,
         email: user.email,
@@ -75,13 +99,13 @@ export class AuthService {
     };
   }
 
-  logout() {
-    // In a real app, you might invalidate the refresh token in DB/Redis
+  logout(response: Response) {
+    response.clearCookie('refresh_token');
     return { message: 'Logged out successfully' };
   }
 
-  refresh(user: User) {
-    return this.login(user);
+  async refresh(user: User, response: Response) {
+    return this.login(user, response);
   }
 
   verifyEmail(_token: string) {

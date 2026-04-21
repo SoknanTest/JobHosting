@@ -5,6 +5,7 @@ import {
   UseGuards,
   Get,
   Req,
+  Res,
   Query,
 } from '@nestjs/common';
 import {
@@ -14,12 +15,14 @@ import {
   ApiResponse,
   ApiBearerAuth,
 } from '@nestjs/swagger';
+import type { Response } from 'express';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
 import { LoginDto } from './dto/login.dto';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { GithubAuthGuard } from './guards/github-auth.guard';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
+import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
 import { User } from '../../generated/prisma/client';
 import type { RequestWithUser } from './interfaces/jwt-payload.interface';
 import { ErrorResponseDto } from '../common/dto/error-response.dto';
@@ -44,18 +47,23 @@ export class AuthController {
   @ApiBody({ type: LoginDto })
   @ApiResponse({ status: 200, description: 'Login successful' })
   @ApiResponse({ status: 401, type: ErrorResponseDto })
-  login(@Req() req: RequestWithUser) {
-    return this.authService.login(req.user as User);
+  login(
+    @Req() req: RequestWithUser,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    return this.authService.login(req.user as User, res);
   }
 
   @Post('refresh')
-  @ApiBearerAuth()
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtRefreshGuard)
   @ApiOperation({ summary: 'Refresh access token' })
   @ApiResponse({ status: 200, description: 'Token refreshed' })
   @ApiResponse({ status: 401, type: ErrorResponseDto })
-  refresh(@Req() req: RequestWithUser) {
-    return this.authService.refresh(req.user as User);
+  refresh(
+    @Req() req: RequestWithUser,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    return this.authService.refresh(req.user as User, res);
   }
 
   @Post('logout')
@@ -63,8 +71,8 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Logout user' })
   @ApiResponse({ status: 200, description: 'Logout successful' })
-  logout() {
-    return this.authService.logout();
+  logout(@Res({ passthrough: true }) res: Response) {
+    return this.authService.logout(res);
   }
 
   @Get('github')
@@ -78,8 +86,11 @@ export class AuthController {
   @UseGuards(GithubAuthGuard)
   @ApiOperation({ summary: 'GitHub OAuth callback' })
   @ApiResponse({ status: 200, description: 'Login successful' })
-  githubAuthCallback(@Req() req: RequestWithUser) {
-    return this.authService.login(req.user as User);
+  githubAuthCallback(
+    @Req() req: RequestWithUser,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    return this.authService.login(req.user as User, res);
   }
 
   @Get('verify-email')
