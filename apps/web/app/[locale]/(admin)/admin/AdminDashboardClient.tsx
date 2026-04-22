@@ -39,7 +39,7 @@ export default function AdminDashboardClient() {
           </div>
           <div>
             <p className="text-xs text-gray-400 font-black uppercase tracking-widest">Total Users</p>
-            <h3 className="text-3xl font-black text-gray-900">{stats?.usersCount || 0}</h3>
+            <h3 className="text-3xl font-black text-gray-900">{stats?.users || 0}</h3>
           </div>
         </div>
         <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-xl shadow-indigo-50/20 flex items-center gap-4">
@@ -48,7 +48,7 @@ export default function AdminDashboardClient() {
           </div>
           <div>
             <p className="text-xs text-gray-400 font-black uppercase tracking-widest">Live Jobs</p>
-            <h3 className="text-3xl font-black text-gray-900">{stats?.jobsCount || 0}</h3>
+            <h3 className="text-3xl font-black text-gray-900">{stats?.jobs || 0}</h3>
           </div>
         </div>
         <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-xl shadow-indigo-50/20 flex items-center gap-4">
@@ -57,7 +57,7 @@ export default function AdminDashboardClient() {
           </div>
           <div>
             <p className="text-xs text-gray-400 font-black uppercase tracking-widest">Applications</p>
-            <h3 className="text-3xl font-black text-gray-900">{stats?.applicationsCount || 0}</h3>
+            <h3 className="text-3xl font-black text-gray-900">{stats?.applications || 0}</h3>
           </div>
         </div>
         <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-xl shadow-indigo-50/20 flex items-center gap-4">
@@ -66,7 +66,7 @@ export default function AdminDashboardClient() {
           </div>
           <div>
             <p className="text-xs text-gray-400 font-black uppercase tracking-widest">Companies</p>
-            <h3 className="text-3xl font-black text-gray-900">{stats?.companiesCount || 0}</h3>
+            <h3 className="text-3xl font-black text-gray-900">{0}</h3>
           </div>
         </div>
       </div>

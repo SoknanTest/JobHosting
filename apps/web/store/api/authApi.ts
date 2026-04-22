@@ -40,6 +40,12 @@ export const authApi = apiSlice.injectEndpoints({
         method: 'POST',
       }),
     }),
+    refresh: builder.mutation<AuthResponse, void>({
+      query: () => ({
+        url: '/auth/refresh',
+        method: 'POST',
+      }),
+    }),
     verifyEmail: builder.query<{ message: string }, string>({
       query: (token) => `/auth/verify-email?token=${token}`,
     }),
@@ -50,5 +56,6 @@ export const {
   useRegisterMutation,
   useLoginMutation,
   useLogoutMutation,
+  useRefreshMutation,
   useVerifyEmailQuery,
 } = authApi;

@@ -2,10 +2,9 @@ import { apiSlice } from './apiSlice';
 import { User, Job, Role } from '@shared/types';
 
 export interface AdminStats {
-  usersCount: number;
-  jobsCount: number;
-  applicationsCount: number;
-  companiesCount: number;
+  users: number;
+  jobs: number;
+  applications: number;
 }
 
 export const adminApi = apiSlice.injectEndpoints({
