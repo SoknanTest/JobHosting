@@ -1,0 +1,47 @@
+{
+  "nav": {
+    "jobs": "Browse Jobs",
+    "login": "Login",
+    "register": "Register",
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "postJob": "Post a Job",
+    "chat": "Chat",
+    "notifications": "Notifications"
+  },
+  "job": {
+    "apply": "Apply Now",
+    "type": {
+      "fullTime": "Full-time",
+      "partTime": "Part-time",
+      "freelance": "Freelance",
+      "internship": "Internship"
+    }
+  },
+  "common": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "search": "Search",
+    "location": "Location",
+    "salary": "Salary",
+    "email": "Email address",
+    "password": "Password"
+  },
+  "auth": {
+    "loginTitle": "Sign in to your account",
+    "loginSubtitle": "Enter your credentials to access your dashboard",
+    "registerTitle": "Create a new account",
+    "registerSubtitle": "Join Cambodia's best job platform",
+    "login": "Sign in",
+    "register": "Register",
+    "logout": "Logout",
+    "forgotPassword": "Forgot your password?",
+    "dontHaveAccount": "Don't have an account?",
+    "alreadyHaveAccount": "Already have an account?",
+    "role": "I am a...",
+    "seeker": "Job Seeker",
+    "employer": "Employer",
+    "firstName": "First Name",
+    "lastName": "Last Name"
+  }
+}
