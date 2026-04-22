@@ -54,7 +54,7 @@ pnpm lint                 # Run ESLint
 - **Framework:** Next.js 16 (App Router)
 - **Styling:** Tailwind CSS v4
 - **Fonts:** Geist Sans + Geist Mono
-- **Path aliases:** `@/*` → `apps/web/*`
+- **Path aliases:** `&#64;/*` → `apps/web/*`
 
 ### Backend (apps/api)
 - **Framework:** NestJS with modular architecture
@@ -71,7 +71,7 @@ pnpm lint                 # Run ESLint
 
 **DTOs:** Use `class-validator` decorators. Required fields use `!`, optional use `?`.
 
-**Controllers:** Every endpoint must have `@ApiTags`, `@ApiOperation`, `@ApiParam`/`@ApiQuery`, and `@ApiResponse` decorators.
+**Controllers:** Every endpoint must have `&#64;ApiTags`, `&#64;ApiOperation`, `&#64;ApiParam`/`&#64;ApiQuery`, and `&#64;ApiResponse` decorators.
 
 **Global ValidationPipe:** `whitelist: true`, `forbidNonWhitelisted: true`, `transform: true`.
 

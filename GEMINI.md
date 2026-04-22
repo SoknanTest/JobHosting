@@ -136,7 +136,7 @@ Example km.json:
 - Docs: Swagger (OpenAPI)
 - Real-time: Socket.IO (chat + notifications)
 - Validation: class-validator + class-transformer
-- Config: @nestjs/config with .env validation
+- Config: `&#64;nestjs/config` with .env validation
 
 ### Folder Structure
 ```
@@ -267,28 +267,28 @@ enum JobType { FULL_TIME PART_TIME FREELANCE INTERNSHIP }
 enum ApplicationStatus { PENDING REVIEWED ACCEPTED REJECTED }
 
 model User {
-  id            String    @id @default(cuid())
-  email         String    @unique
+  id            String    &#64;id &#64;default(cuid())
+  email         String    &#64;unique
   password      String?
-  githubId      String?   @unique
-  role          Role      @default(SEEKER)
-  isVerified    Boolean   @default(false)
-  isBanned      Boolean   @default(false)
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
+  githubId      String?   &#64;unique
+  role          Role      &#64;default(SEEKER)
+  isVerified    Boolean   &#64;default(false)
+  isBanned      Boolean   &#64;default(false)
+  createdAt     DateTime  &#64;default(now())
+  updatedAt     DateTime  &#64;updatedAt
   profile       Profile?
   company       Company?
   jobs          Job[]
   applications  Application[]
-  sentMessages  Message[]     @relation("SentMessages")
+  sentMessages  Message[]     &#64;relation("SentMessages")
   conversations ConversationParticipant[]
   notifications Notification[]
 }
 
 model Profile {
-  id        String   @id @default(cuid())
-  userId    String   @unique
-  user      User     @relation(fields: [userId], references: [id])
+  id        String   &#64;id &#64;default(cuid())
+  userId    String   &#64;unique
+  user      User     &#64;relation(fields: [userId], references: [id])
   firstName String
   lastName  String
   avatar    String?
@@ -296,13 +296,13 @@ model Profile {
   location  String?
   skills    String[]
   cvUrl     String?
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime &#64;updatedAt
 }
 
 model Company {
-  id          String  @id @default(cuid())
-  userId      String  @unique
-  user        User    @relation(fields: [userId], references: [id])
+  id          String  &#64;id &#64;default(cuid())
+  userId      String  &#64;unique
+  user        User    &#64;relation(fields: [userId], references: [id])
   name        String
   logo        String?
   description String?
@@ -312,7 +312,7 @@ model Company {
 }
 
 model Job {
-  id           String    @id @default(cuid())
+  id           String    &#64;id &#64;default(cuid())
   title        String
   description  String
   type         JobType
@@ -321,32 +321,32 @@ model Job {
   salaryMin    Int?
   salaryMax    Int?
   deadline     DateTime?
-  isActive     Boolean   @default(true)
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
+  isActive     Boolean   &#64;default(true)
+  createdAt    DateTime  &#64;default(now())
+  updatedAt    DateTime  &#64;updatedAt
   employerId   String
-  employer     User      @relation(fields: [employerId], references: [id])
+  employer     User      &#64;relation(fields: [employerId], references: [id])
   companyId    String?
-  company      Company?  @relation(fields: [companyId], references: [id])
+  company      Company?  &#64;relation(fields: [companyId], references: [id])
   applications Application[]
 }
 
 model Application {
-  id        String            @id @default(cuid())
-  status    ApplicationStatus @default(PENDING)
+  id        String            &#64;id &#64;default(cuid())
+  status    ApplicationStatus &#64;default(PENDING)
   coverNote String?
-  createdAt DateTime          @default(now())
-  updatedAt DateTime          @updatedAt
+  createdAt DateTime          &#64;default(now())
+  updatedAt DateTime          &#64;updatedAt
   jobId     String
-  job       Job    @relation(fields: [jobId], references: [id])
+  job       Job    &#64;relation(fields: [jobId], references: [id])
   seekerId  String
-  seeker    User   @relation(fields: [seekerId], references: [id])
-  @@unique([jobId, seekerId])
+  seeker    User   &#64;relation(fields: [seekerId], references: [id])
+  &#64;&#64;unique([jobId, seekerId])
 }
 
 model Conversation {
-  id           String    @id @default(cuid())
-  createdAt    DateTime  @default(now())
+  id           String    &#64;id &#64;default(cuid())
+  createdAt    DateTime  &#64;default(now())
   participants ConversationParticipant[]
   messages     Message[]
 }
@@ -354,29 +354,29 @@ model Conversation {
 model ConversationParticipant {
   userId         String
   conversationId String
-  user           User         @relation(fields: [userId], references: [id])
-  conversation   Conversation @relation(fields: [conversationId], references: [id])
-  @@id([userId, conversationId])
+  user           User         &#64;relation(fields: [userId], references: [id])
+  conversation   Conversation &#64;relation(fields: [conversationId], references: [id])
+  &#64;&#64;id([userId, conversationId])
 }
 
 model Message {
-  id             String       @id @default(cuid())
+  id             String       &#64;id &#64;default(cuid())
   content        String
-  createdAt      DateTime     @default(now())
+  createdAt      DateTime     &#64;default(now())
   senderId       String
-  sender         User         @relation("SentMessages", fields: [senderId], references: [id])
+  sender         User         &#64;relation("SentMessages", fields: [senderId], references: [id])
   conversationId String
-  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  conversation   Conversation &#64;relation(fields: [conversationId], references: [id])
 }
 
 model Notification {
-  id        String   @id @default(cuid())
+  id        String   &#64;id &#64;default(cuid())
   type      String
   message   String
-  isRead    Boolean  @default(false)
-  createdAt DateTime @default(now())
+  isRead    Boolean  &#64;default(false)
+  createdAt DateTime &#64;default(now())
   userId    String
-  user      User     @relation(fields: [userId], references: [id])
+  user      User     &#64;relation(fields: [userId], references: [id])
 }
 ```
 
@@ -393,7 +393,7 @@ JWT_REFRESH_EXPIRES_IN="7d"
 GITHUB_CLIENT_ID=""
 GITHUB_CLIENT_SECRET=""
 GITHUB_CALLBACK_URL="http://localhost:4000/auth/github/callback"
-GMAIL_USER="your@gmail.com"
+GMAIL_USER="your&#64;gmail.com"
 GMAIL_APP_PASSWORD=""
 CLOUDINARY_CLOUD_NAME=""
 CLOUDINARY_API_KEY=""
@@ -448,7 +448,7 @@ SwaggerModule.setup('api/docs', app, SwaggerModule.createDocument(app, config));
 
 ### Project Config
 - `strict: true` and `noImplicitAny: true` are enabled in tsconfig
-- ESLint rule `@typescript-eslint/no-explicit-any` is set to `"error"`
+- ESLint rule `&#64;typescript-eslint/no-explicit-any` is set to `"error"`
 
 ## 🏗️ NestJS Architecture Standards
 
@@ -538,10 +538,10 @@ export class JobMapper {
 
 ```typescript
 export class JobResponseDto {
-  @ApiProperty()
+  &#64;ApiProperty()
   id!: string;
 
-  @ApiProperty({ required: false })
+  &#64;ApiProperty({ required: false })
   salaryMin?: number;
 }
 ```
@@ -554,18 +554,18 @@ Always follow this structure for every controller method:
 
 ```typescript
 // jobs.controller.ts
-@ApiTags('jobs')
-@Controller('jobs')
+&#64;ApiTags('jobs')
+&#64;Controller('jobs')
 export class JobsController {
   constructor(private readonly jobsService: JobsService) {}
 
-  @Get(':id')
-  @ApiOperation({ summary: 'Get job by id' })
-  @ApiParam({ name: 'id', description: 'Job UUID or CUID' })
-  @ApiResponse({ status: 200, type: JobResponseDto })
-  @ApiResponse({ status: 404, type: ErrorResponseDto })
-  @ApiResponse({ status: 500, type: ErrorResponseDto })
-  async findOne(@Param('id') id: string): Promise<JobResponseDto> {
+  &#64;Get(':id')
+  &#64;ApiOperation({ summary: 'Get job by id' })
+  &#64;ApiParam({ name: 'id', description: 'Job UUID or CUID' })
+  &#64;ApiResponse({ status: 200, type: JobResponseDto })
+  &#64;ApiResponse({ status: 404, type: ErrorResponseDto })
+  &#64;ApiResponse({ status: 500, type: ErrorResponseDto })
+  async findOne(&#64;Param('id') id: string): Promise<JobResponseDto> {
     const job = await this.jobsService.findOne(id);
     if (!job) {
       throw new NotFoundException('Job not found');
@@ -576,12 +576,12 @@ export class JobsController {
 ```
 
 **Controller Rules:**
-- Always add `@ApiTags('ModuleName')` on the controller class.
-- Always add `@ApiBearerAuth()` on protected routes.
-- Always add `@ApiOperation({ summary: '...' })` on every method.
-- Always add `@ApiParam` for every route param.
-- Always add `@ApiQuery` for every optional query param.
-- Always declare all possible `@ApiResponse` statuses (use `ErrorResponseDto` for errors).
+- Always add `&#64;ApiTags('ModuleName')` on the controller class.
+- Always add `&#64;ApiBearerAuth()` on protected routes.
+- Always add `&#64;ApiOperation({ summary: '...' })` on every method.
+- Always add `&#64;ApiParam` for every route param.
+- Always add `&#64;ApiQuery` for every optional query param.
+- Always declare all possible `&#64;ApiResponse` statuses (use `ErrorResponseDto` for errors).
 - Never return raw Prisma objects — always go through the Mapper.
 
 ---
@@ -595,7 +595,7 @@ export class JobsController {
 - Prisma transactions for multi-step DB operations
 - Paginate all lists (default page=1, limit=10)
 - Consistent response: { data, message, statusCode }
-- @ApiTags, @ApiOperation, @ApiBearerAuth on all controllers
+- &#64;ApiTags, &#64;ApiOperation, &#64;ApiBearerAuth on all controllers
 - Refresh tokens in httpOnly cookies only
 - bcrypt rounds: 12
 
@@ -648,4 +648,4 @@ When helping with this project, ALWAYS:
 11. **Mapper Pattern**: Always use the Mapper pattern (Prisma include const + PayloadType + Mapper class) for Prisma → DTO transformation.
 12. **No Inline Transformation**: Never transform Prisma data inline in services or controllers.
 13. **DTO Field Assertions**: Use `!` for required fields and `?` for optional fields in all DTOs.
-14. **Full Controller Docs**: Ensure every controller method has `@ApiOperation` and `@ApiResponse` for all relevant status codes.
+14. **Full Controller Docs**: Ensure every controller method has `&#64;ApiOperation` and `&#64;ApiResponse` for all relevant status codes.
