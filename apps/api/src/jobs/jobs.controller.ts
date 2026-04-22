@@ -33,6 +33,7 @@ import { CurrentUser } from '../auth/decorators/current-user.decorator';
 import { Role } from '../../generated/prisma/client';
 import { JwtPayload } from '../auth/interfaces/jwt-payload.interface';
 import { ErrorResponseDto } from '../common/dto/error-response.dto';
+import { SuccessResponseDto } from '../common/dto/success-response.dto';
 import { ApplicationsService } from '../applications/applications.service';
 import { ApplicationResponseDto } from '../applications/dto/application-response.dto';
 import { ApplicationMapper } from '../applications/applications.mapper';
@@ -120,7 +121,7 @@ export class JobsController {
   @Roles(Role.EMPLOYER, Role.ADMIN)
   @ApiOperation({ summary: 'Delete job listing' })
   @ApiParam({ name: 'id', description: 'Job CUID' })
-  @ApiResponse({ status: 200, description: 'Job deleted successfully' })
+  @ApiResponse({ status: 200, type: SuccessResponseDto })
   @ApiResponse({ status: 401, type: ErrorResponseDto })
   @ApiResponse({ status: 403, type: ErrorResponseDto })
   @ApiResponse({ status: 404, type: ErrorResponseDto })
@@ -128,8 +129,9 @@ export class JobsController {
   async remove(
     @Param('id') id: string,
     @CurrentUser() user: JwtPayload,
-  ): Promise<void> {
+  ): Promise<SuccessResponseDto> {
     await this.jobsService.remove(id, user.sub, user.role === Role.ADMIN);
+    return { message: 'Job deleted successfully' };
   }
 
   @Post(':id/apply')

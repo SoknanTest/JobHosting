@@ -12,6 +12,7 @@ import { JwtPayload } from '../auth/interfaces/jwt-payload.interface';
 import { NotificationResponseDto } from './dto/notification-response.dto';
 import { NotificationMapper } from './notifications.mapper';
 import { ErrorResponseDto } from '../common/dto/error-response.dto';
+import { SuccessResponseDto } from '../common/dto/success-response.dto';
 
 @ApiTags('notifications')
 @ApiBearerAuth()
@@ -51,10 +52,13 @@ export class NotificationsController {
 
   @Patch('read-all')
   @ApiOperation({ summary: 'Mark all notifications as read' })
-  @ApiResponse({ status: 200, description: 'All notifications marked as read' })
+  @ApiResponse({ status: 200, type: SuccessResponseDto })
   @ApiResponse({ status: 401, type: ErrorResponseDto })
   @ApiResponse({ status: 500, type: ErrorResponseDto })
-  async markAllAsRead(@CurrentUser() user: JwtPayload): Promise<void> {
+  async markAllAsRead(
+    @CurrentUser() user: JwtPayload,
+  ): Promise<SuccessResponseDto> {
     await this.notificationsService.markAllAsRead(user.sub);
+    return { message: 'All notifications marked as read' };
   }
 }

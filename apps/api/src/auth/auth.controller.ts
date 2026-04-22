@@ -26,6 +26,9 @@ import { JwtRefreshGuard } from './guards/jwt-refresh.guard';
 import { User } from '../../generated/prisma/client';
 import type { RequestWithUser } from './interfaces/jwt-payload.interface';
 import { ErrorResponseDto } from '../common/dto/error-response.dto';
+import { SuccessResponseDto } from '../common/dto/success-response.dto';
+import { AuthResponseDto } from './dto/auth-response.dto';
+import { RegisterResponseDto } from './dto/register-response.dto';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -34,35 +37,35 @@ export class AuthController {
 
   @Post('register')
   @ApiOperation({ summary: 'Register a new user' })
-  @ApiResponse({ status: 201, description: 'User registered successfully' })
+  @ApiResponse({ status: 201, type: RegisterResponseDto })
   @ApiResponse({ status: 409, type: ErrorResponseDto })
   @ApiResponse({ status: 500, type: ErrorResponseDto })
-  async register(@Body() registerDto: RegisterDto) {
-    return this.authService.register(registerDto);
+  async register(@Body() registerDto: RegisterDto): Promise<RegisterResponseDto> {
+    return this.authService.register(registerDto) as unknown as RegisterResponseDto;
   }
 
   @UseGuards(LocalAuthGuard)
   @Post('login')
   @ApiOperation({ summary: 'Login with email and password' })
   @ApiBody({ type: LoginDto })
-  @ApiResponse({ status: 200, description: 'Login successful' })
+  @ApiResponse({ status: 200, type: AuthResponseDto })
   @ApiResponse({ status: 401, type: ErrorResponseDto })
   login(
     @Req() req: RequestWithUser,
     @Res({ passthrough: true }) res: Response,
-  ) {
+  ): Promise<AuthResponseDto> {
     return this.authService.login(req.user as User, res);
   }
 
   @Post('refresh')
   @UseGuards(JwtRefreshGuard)
   @ApiOperation({ summary: 'Refresh access token' })
-  @ApiResponse({ status: 200, description: 'Token refreshed' })
+  @ApiResponse({ status: 200, type: AuthResponseDto })
   @ApiResponse({ status: 401, type: ErrorResponseDto })
   refresh(
     @Req() req: RequestWithUser,
     @Res({ passthrough: true }) res: Response,
-  ) {
+  ): Promise<AuthResponseDto> {
     return this.authService.refresh(req.user as User, res);
   }
 
@@ -70,8 +73,8 @@ export class AuthController {
   @ApiBearerAuth()
   @UseGuards(JwtAuthGuard)
   @ApiOperation({ summary: 'Logout user' })
-  @ApiResponse({ status: 200, description: 'Logout successful' })
-  logout(@Res({ passthrough: true }) res: Response) {
+  @ApiResponse({ status: 200, type: SuccessResponseDto })
+  logout(@Res({ passthrough: true }) res: Response): SuccessResponseDto {
     return this.authService.logout(res);
   }
 
@@ -85,19 +88,19 @@ export class AuthController {
   @Get('github/callback')
   @UseGuards(GithubAuthGuard)
   @ApiOperation({ summary: 'GitHub OAuth callback' })
-  @ApiResponse({ status: 200, description: 'Login successful' })
+  @ApiResponse({ status: 200, type: AuthResponseDto })
   githubAuthCallback(
     @Req() req: RequestWithUser,
     @Res({ passthrough: true }) res: Response,
-  ) {
+  ): Promise<AuthResponseDto> {
     return this.authService.login(req.user as User, res);
   }
 
   @Get('verify-email')
   @ApiOperation({ summary: 'Verify user email' })
-  @ApiResponse({ status: 200, description: 'Email verified' })
+  @ApiResponse({ status: 200, type: SuccessResponseDto })
   @ApiResponse({ status: 400, type: ErrorResponseDto })
-  verifyEmail(@Query('token') token: string) {
+  verifyEmail(@Query('token') token: string): SuccessResponseDto {
     return this.authService.verifyEmail(token);
   }
 }

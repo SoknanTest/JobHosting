@@ -26,6 +26,7 @@ import { UserMapper } from '../users/users.mapper';
 import { JobMapper } from '../jobs/jobs.mapper';
 import { AdminMapper } from './admin.mapper';
 import { ErrorResponseDto } from '../common/dto/error-response.dto';
+import { SuccessResponseDto } from '../common/dto/success-response.dto';
 import { JobsService } from '../jobs/jobs.service';
 
 @ApiTags('admin')
@@ -93,13 +94,14 @@ export class AdminController {
 
   @Delete('jobs/:id')
   @ApiOperation({ summary: 'Delete a job listing' })
-  @ApiResponse({ status: 200, description: 'Job deleted successfully' })
+  @ApiResponse({ status: 200, type: SuccessResponseDto })
   @ApiResponse({ status: 401, type: ErrorResponseDto })
   @ApiResponse({ status: 403, type: ErrorResponseDto })
   @ApiResponse({ status: 404, type: ErrorResponseDto })
   @ApiResponse({ status: 500, type: ErrorResponseDto })
-  async removeJob(@Param('id') id: string): Promise<void> {
+  async removeJob(@Param('id') id: string): Promise<SuccessResponseDto> {
     await this.jobsService.remove(id, '', true); // userId empty string because isAdmin is true
+    return { message: 'Job deleted successfully' };
   }
 
   @Get('stats')
