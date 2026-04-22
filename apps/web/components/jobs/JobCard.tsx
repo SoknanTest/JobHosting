@@ -27,10 +27,10 @@ export default function JobCard({ job }: JobCardProps) {
   const formattedSalary = job.salaryMin && job.salaryMax
     ? `$${job.salaryMin.toLocaleString()} - $${job.salaryMax.toLocaleString()}`
     : job.salaryMin 
-      ? `From $${job.salaryMin.toLocaleString()}` 
+      ? t('fromSalary', { amount: job.salaryMin.toLocaleString() })
       : job.salaryMax 
-        ? `Up to $${job.salaryMax.toLocaleString()}` 
-        : 'Salary not specified';
+        ? t('upToSalary', { amount: job.salaryMax.toLocaleString() })
+        : t('salaryNotSpecified');
 
   return (
     <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-shadow">
@@ -48,7 +48,7 @@ export default function JobCard({ job }: JobCardProps) {
               {job.title}
             </h3>
             <p className="text-indigo-600 font-medium text-sm mt-1">
-              {job.company?.name || 'Private Employer'}
+              {job.company?.name || t('privateEmployer')}
             </p>
           </div>
         </div>
@@ -83,7 +83,7 @@ export default function JobCard({ job }: JobCardProps) {
           href={`/jobs/${job.id}`}
           className="text-sm font-semibold text-gray-900 hover:text-indigo-600 transition-colors"
         >
-          View Details
+          {t('viewDetails')}
         </Link>
         <Link
           href={`/jobs/${job.id}`}

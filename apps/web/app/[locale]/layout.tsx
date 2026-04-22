@@ -1,12 +1,11 @@
-import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, setRequestLocale } from 'next-intl/server';
 import { notFound } from 'next/navigation';
 import { routing } from '@/routing';
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import { StoreProvider } from '@/components/providers/StoreProvider';
+import { Providers } from '@/components/providers/Providers';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
+import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 
 const geistSans = Geist({
@@ -47,15 +46,13 @@ export default async function RootLayout({
   return (
     <html lang={locale} className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-gray-50">
-        <StoreProvider>
-          <NextIntlClientProvider messages={messages} locale={locale}>
-            <Navbar />
-            <div className="flex-1">
-              {children}
-            </div>
-            <Footer />
-          </NextIntlClientProvider>
-        </StoreProvider>
+        <Providers messages={messages} locale={locale}>
+          <Navbar />
+          <div className="flex-1">
+            {children}
+          </div>
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

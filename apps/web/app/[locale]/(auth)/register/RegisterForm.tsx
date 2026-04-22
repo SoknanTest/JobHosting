@@ -8,6 +8,7 @@ import { Link, useRouter } from '@/routing';
 import { useState } from 'react';
 import { Eye, EyeOff, Loader2, User, Building2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useRegisterMutation } from '@/store/api/authApi';
 
 const registerSchema = z.object({
   firstName: z.string().min(2, 'First name is too short'),
@@ -26,7 +27,7 @@ export default function RegisterForm() {
   const commonT = useTranslations('common');
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [registerUser, { isLoading, error }] = useRegisterMutation();
 
   const {
     register,
@@ -44,20 +45,27 @@ export default function RegisterForm() {
   const selectedRole = watch('role');
 
   const onSubmit = async (data: RegisterFormValues) => {
-    setIsLoading(true);
     try {
-      console.log('Register data:', data);
-      await new Promise((resolve) => setTimeout(resolve, 1500));
+      await registerUser({
+        email: data.email,
+        password: data.password,
+        firstName: data.firstName,
+        lastName: data.lastName,
+      }).unwrap();
+      
       router.push('/login');
-    } catch (error) {
-      console.error('Registration failed:', error);
-    } finally {
-      setIsLoading(false);
+    } catch (err) {
+      console.error('Registration failed:', err);
     }
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      {error && (
+        <div className="bg-red-50 border border-red-100 text-red-600 px-4 py-3 rounded-lg text-sm font-medium">
+          {(error as any).data?.message || 'Registration failed. Please try again.'}
+        </div>
+      )}
       {/* Role Selection */}
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-3">

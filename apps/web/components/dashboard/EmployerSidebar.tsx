@@ -4,9 +4,11 @@ import { Link, usePathname } from '@/routing';
 import { 
   LayoutDashboard, 
   Briefcase, 
+  PlusCircle,
+  Users,
   MessageSquare, 
   Bell, 
-  User, 
+  Building,
   Settings, 
   LogOut,
   ChevronRight
@@ -14,15 +16,17 @@ import {
 import { cn } from '@/lib/utils';
 
 const menuItems = [
-  { icon: LayoutDashboard, label: 'Dashboard', href: '/seeker' },
-  { icon: Briefcase, label: 'Applications', href: '/applications' },
+  { icon: LayoutDashboard, label: 'Dashboard', href: '/employer' },
+  { icon: Briefcase, label: 'My Jobs', href: '/employer/jobs' },
+  { icon: PlusCircle, label: 'Post a Job', href: '/employer/jobs/new' },
+  { icon: Users, label: 'Applicants', href: '/employer/applicants' },
   { icon: MessageSquare, label: 'Messages', href: '/chat' },
   { icon: Bell, label: 'Notifications', href: '/notifications' },
-  { icon: User, label: 'Profile', href: '/profile' },
+  { icon: Building, label: 'Company Profile', href: '/employer/company' },
   { icon: Settings, label: 'Settings', href: '/settings' },
 ];
 
-export default function DashboardSidebar() {
+export default function EmployerSidebar() {
   const pathname = usePathname();
 
   return (

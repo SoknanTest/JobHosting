@@ -6,6 +6,10 @@ import * as z from 'zod';
 import { Link, useRouter } from '@/routing';
 import { useState } from 'react';
 import { Eye, EyeOff, Loader2 } from 'lucide-react';
+import { useLoginMutation } from '@/store/api/authApi';
+import { useDispatch } from 'react-redux';
+import { setCredentials } from '@/store/slices/authSlice';
+import { useTranslations } from 'next-intl';
 
 const loginSchema = z.object({
   email: z.string().email('Invalid email address'),
@@ -15,9 +19,12 @@ const loginSchema = z.object({
 type LoginFormValues = z.infer<typeof loginSchema>;
 
 export default function LoginForm() {
+  const t = useTranslations('auth');
+  const commonT = useTranslations('common');
   const router = useRouter();
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const [login, { isLoading, error }] = useLoginMutation();
 
   const {
     register,
@@ -28,23 +35,29 @@ export default function LoginForm() {
   });
 
   const onSubmit = async (data: LoginFormValues) => {
-    setIsLoading(true);
     try {
-      console.log('Login data:', data);
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      router.push('/dashboard');
-    } catch (error) {
-      console.error('Login failed:', error);
-    } finally {
-      setIsLoading(false);
+      const response = await login(data).unwrap();
+      dispatch(setCredentials({ user: response.user, token: response.access_token }));
+      
+      const role = response.user.role;
+      if (role === 'ADMIN') router.push('/admin');
+      else if (role === 'EMPLOYER') router.push('/employer');
+      else router.push('/seeker');
+    } catch (err) {
+      console.error('Login failed:', err);
     }
   };
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+      {error && (
+        <div className="bg-red-50 border border-red-100 text-red-600 px-4 py-3 rounded-lg text-sm font-medium">
+          {(error as any).data?.message || 'Invalid email or password.'}
+        </div>
+      )}
       <div>
         <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-          Email address
+          {commonT('email')}
         </label>
         <div className="mt-1">
           <input
@@ -61,7 +74,7 @@ export default function LoginForm() {
 
       <div>
         <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-          Password
+          {commonT('password')}
         </label>
         <div className="mt-1 relative">
           <input
@@ -86,7 +99,7 @@ export default function LoginForm() {
       <div className="flex items-center justify-between">
         <div className="text-sm">
           <Link href="/login" className="font-medium text-indigo-600 hover:text-indigo-500">
-            Forgot your password?
+            {t('forgotPassword')}
           </Link>
         </div>
       </div>
@@ -97,14 +110,14 @@ export default function LoginForm() {
           disabled={isLoading}
           className="flex w-full justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-50 transition-all"
         >
-          {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : 'Sign in'}
+          {isLoading ? <Loader2 className="h-5 w-5 animate-spin" /> : t('login')}
         </button>
       </div>
 
       <div className="mt-6 text-center text-sm">
-        <span className="text-gray-600">Don't have an account? </span>
+        <span className="text-gray-600">{t('dontHaveAccount')} </span>
         <Link href="/register" className="font-medium text-indigo-600 hover:text-indigo-500">
-          Register
+          {t('register')}
         </Link>
       </div>
     </form>

@@ -1,4 +1,7 @@
-import LoginForm from './LoginForm';
+import { setRequestLocale } from 'next-intl/server';
+import dynamic from 'next/dynamic';
+
+const LoginForm = dynamic(() => import('./LoginForm'), { ssr: false });
 
 export default async function LoginPage({
   params
@@ -6,6 +9,7 @@ export default async function LoginPage({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
+  setRequestLocale(locale);
 
   return (
     <div className="flex min-h-full flex-col justify-center py-12 sm:px-6 lg:px-8">
