@@ -241,8 +241,8 @@ export default function ProfileClient() {
                     <h2 className="text-xl font-black text-gray-900 mb-4 tracking-tight">{profileT('skills')}</h2>
                     <div className="flex flex-wrap gap-2">
                       {user.profile?.skills && user.profile.skills.length > 0 ? (
-                        user.profile.skills.map((skill) => (
-                          <span key={skill} className="px-3 py-1 bg-gray-50 text-gray-600 rounded-lg text-sm font-bold border border-gray-100">
+                        user.profile.skills.map((skill: string) => (
+                          <span key={skill} className="px-3 py-1 bg-gray-50 text-gray-600 rounded-full text-xs font-medium border border-gray-100">
                             {skill}
                           </span>
                         ))

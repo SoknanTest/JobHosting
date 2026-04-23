@@ -17,7 +17,10 @@ export class AuthMapper {
     return UserMapper.toDto(user);
   }
 
-  static toAuthResponseDto(user: AuthUserWithRelations, accessToken: string): AuthResponseDto {
+  static toAuthResponseDto(
+    user: AuthUserWithRelations,
+    accessToken: string,
+  ): AuthResponseDto {
     return {
       access_token: accessToken,
       user: this.toUserDto(user),

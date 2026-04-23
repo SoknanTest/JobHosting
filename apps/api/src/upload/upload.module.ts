@@ -10,7 +10,7 @@ import { CloudinaryStorage } from 'multer-storage-cloudinary';
   imports: [
     MulterModule.registerAsync({
       imports: [ConfigModule],
-      useFactory: async (configService: ConfigService) => {
+      useFactory: (configService: ConfigService) => {
         cloudinary.config({
           cloud_name: configService.get('CLOUDINARY_CLOUD_NAME'),
           api_key: configService.get('CLOUDINARY_API_KEY'),

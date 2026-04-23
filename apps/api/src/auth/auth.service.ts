@@ -45,6 +45,7 @@ export class AuthService {
       },
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const { password: _password, ...userWithoutPassword } = user;
     return userWithoutPassword;
   }
@@ -55,13 +56,14 @@ export class AuthService {
   ): Promise<Omit<User, 'password'> | null> {
     const user = await this.prisma.user.findUnique({ where: { email } });
     if (user && user.password && (await bcrypt.compare(pass, user.password))) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password: _password, ...result } = user;
       return result;
     }
     return null;
   }
 
-  async login(user: User, response: Response) {
+  login(user: User, response: Response) {
     const payload: JwtPayload = {
       id: user.id,
       email: user.email,
@@ -104,11 +106,12 @@ export class AuthService {
     return { message: 'Logged out successfully' };
   }
 
-  async refresh(user: User, response: Response) {
+  refresh(user: User, response: Response) {
     return this.login(user, response);
   }
 
-  verifyEmail(_token: string) {
+  verifyEmail(token: string) {
+    void token;
     // Placeholder for email verification logic
     return { message: 'Email verified successfully' };
   }

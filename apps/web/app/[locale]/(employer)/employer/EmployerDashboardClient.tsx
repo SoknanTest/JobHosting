@@ -24,7 +24,8 @@ export default function EmployerDashboardClient() {
   }
 
   const jobs = data?.data || [];
-  const activeJobs = jobs.filter(j => j.isActive);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const activeJobs = jobs.filter((j: any) => j.isActive);
   
   // Mock stats since we don't have a specific stats endpoint for employers yet in the RTK slice
   const stats = {
@@ -105,7 +106,7 @@ export default function EmployerDashboardClient() {
               </tr>
             </thead>
             <tbody className="divide-y divide-gray-100">
-              {activeJobs.map((job) => (
+              {activeJobs.map((job: any) => (
                 <tr key={job.id} className="hover:bg-gray-50 transition-colors">
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm font-bold text-gray-900">{job.title}</div>

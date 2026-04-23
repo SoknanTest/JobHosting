@@ -22,7 +22,9 @@ export default function ApplicationsListClient() {
   return (
     <div className="space-y-6">
       {applications && applications.length > 0 ? (
-        applications.map((app) => (
+        applications.map((app) => {
+          if (!app.job) return null;
+          return (
           <div key={app.id} className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
               <div className="flex items-start gap-4">
@@ -68,7 +70,8 @@ export default function ApplicationsListClient() {
               </div>
             </div>
           </div>
-        ))
+          );
+        })
       ) : (
         <div className="bg-white p-12 rounded-2xl border border-dashed text-center">
           <Briefcase className="h-12 w-12 text-gray-300 mx-auto mb-4" />

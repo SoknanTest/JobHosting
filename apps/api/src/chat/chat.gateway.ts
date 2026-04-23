@@ -43,6 +43,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
       }
 
       const payload = this.jwtService.verify<JwtPayload>(token);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       client.data.user = payload;
       await client.join(`user_${payload.sub}`);
       this.logger.log(
@@ -67,13 +68,16 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     @MessageBody() data: { conversationId: string; content: string },
     @ConnectedSocket() client: Socket,
   ) {
-    const user = client.data.user as JwtPayload;
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-assignment
+    const user: JwtPayload = client.data.user;
+    if (!user) return;
     const senderId = user.sub;
 
     const message = await this.prisma.message.create({
       data: {
         content: data.content,
         conversationId: data.conversationId,
+
         senderId,
       },
       include: {
@@ -91,10 +95,10 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     return message;
   }
   @SubscribeMessage('joinConversation')
-  handleJoinConversation(
+  async handleJoinConversation(
     @MessageBody() data: { conversationId: string },
     @ConnectedSocket() client: Socket,
   ) {
-    client.join(`conv_${data.conversationId}`);
+    await client.join(`conv_${data.conversationId}`);
   }
 }

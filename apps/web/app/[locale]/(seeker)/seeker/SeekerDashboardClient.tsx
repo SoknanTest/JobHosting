@@ -93,7 +93,9 @@ export default function SeekerDashboardClient() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
-                {recentApplications.map((app) => (
+                {recentApplications.map((app) => {
+                  if (!app.job) return null;
+                  return (
                   <tr key={app.id} className="hover:bg-gray-50 transition-colors">
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">
                       <Link href={`/jobs/${app.job.id}`} className="hover:text-indigo-600">{app.job.title}</Link>
@@ -113,7 +115,8 @@ export default function SeekerDashboardClient() {
                       </span>
                     </td>
                   </tr>
-                ))}
+                  );
+                })}
                 {recentApplications.length === 0 && (
                   <tr>
                     <td colSpan={4} className="px-6 py-10 text-center text-gray-500 font-medium">
@@ -132,7 +135,8 @@ export default function SeekerDashboardClient() {
         <div className="space-y-6">
           <h2 className="text-xl font-bold text-gray-900">{jobT('recommendedJobs')}</h2>
           <div className="space-y-4">
-            {recommendedJobs?.data.map((job) => (
+            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+            {recommendedJobs?.data.map((job: any) => (
               <div 
                 key={job.id} 
                 onClick={() => router.push(`/jobs/${job.id}`)}

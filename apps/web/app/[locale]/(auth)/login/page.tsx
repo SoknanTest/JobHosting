@@ -1,7 +1,5 @@
 import { setRequestLocale } from 'next-intl/server';
-import dynamic from 'next/dynamic';
-
-const LoginForm = dynamic(() => import('./LoginForm'), { ssr: false });
+import LoginForm from './LoginForm';
 
 export default async function LoginPage({
   params

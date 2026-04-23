@@ -2,7 +2,10 @@ import { Injectable } from '@nestjs/common';
 import { Prisma } from '../../generated/prisma/client';
 import { PrismaService } from '../prisma/prisma.service';
 import { NotificationGateway } from './notifications.gateway';
-import { NotificationMapper, NotificationWithRelations } from './notifications.mapper';
+import {
+  NotificationMapper,
+  NotificationWithRelations,
+} from './notifications.mapper';
 
 @Injectable()
 export class NotificationsService {

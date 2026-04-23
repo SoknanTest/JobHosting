@@ -8,6 +8,8 @@ export interface QueryJobsRequest {
   category?: string;
   location?: string;
   type?: JobType;
+  salaryMin?: number | string;
+  salaryMax?: number | string;
 }
 
 export interface CreateJobRequest {

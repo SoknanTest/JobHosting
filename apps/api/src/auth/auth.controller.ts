@@ -40,8 +40,10 @@ export class AuthController {
   @ApiResponse({ status: 201, type: RegisterResponseDto })
   @ApiResponse({ status: 409, type: ErrorResponseDto })
   @ApiResponse({ status: 500, type: ErrorResponseDto })
-  async register(@Body() registerDto: RegisterDto): Promise<RegisterResponseDto> {
-    return this.authService.register(registerDto) as unknown as RegisterResponseDto;
+  register(@Body() registerDto: RegisterDto): Promise<RegisterResponseDto> {
+    return this.authService.register(
+      registerDto,
+    ) as unknown as Promise<RegisterResponseDto>;
   }
 
   @UseGuards(LocalAuthGuard)
@@ -53,7 +55,7 @@ export class AuthController {
   login(
     @Req() req: RequestWithUser,
     @Res({ passthrough: true }) res: Response,
-  ): Promise<AuthResponseDto> {
+  ): AuthResponseDto {
     return this.authService.login(req.user as User, res);
   }
 
@@ -65,7 +67,7 @@ export class AuthController {
   refresh(
     @Req() req: RequestWithUser,
     @Res({ passthrough: true }) res: Response,
-  ): Promise<AuthResponseDto> {
+  ): AuthResponseDto {
     return this.authService.refresh(req.user as User, res);
   }
 
@@ -92,7 +94,7 @@ export class AuthController {
   githubAuthCallback(
     @Req() req: RequestWithUser,
     @Res({ passthrough: true }) res: Response,
-  ): Promise<AuthResponseDto> {
+  ): AuthResponseDto {
     return this.authService.login(req.user as User, res);
   }
 
