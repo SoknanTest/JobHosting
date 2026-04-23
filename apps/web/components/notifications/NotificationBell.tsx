@@ -6,8 +6,11 @@ import { useSocket } from '@/components/providers/SocketProvider';
 import { Bell, Loader2, CheckCircle2 } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { Link } from '@/routing';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/store';
 
 export default function NotificationBell() {
+  const { user } = useSelector((state: RootState) => state.auth);
   const { data: notifications, isLoading, refetch } = useGetNotificationsQuery();
   const [markAsRead] = useMarkAsReadMutation();
   const [markAllAsRead] = useMarkAllAsReadMutation();
@@ -15,6 +18,10 @@ export default function NotificationBell() {
   const [isOpen, setIsOpen] = useState(false);
 
   const unreadCount = notifications?.filter(n => !n.isRead).length || 0;
+
+  const notificationsHref = user?.role === 'ADMIN' ? '/admin/notifications' : 
+                         user?.role === 'EMPLOYER' ? '/employer/notifications' : 
+                         '/seeker/notifications';
 
   useEffect(() => {
     if (!notificationSocket) return;
@@ -110,7 +117,7 @@ export default function NotificationBell() {
             
             <div className="p-4 border-t text-center bg-gray-50/30">
               <Link 
-                href="/notifications" 
+                href={notificationsHref} 
                 onClick={() => setIsOpen(false)}
                 className="text-[10px] font-black text-gray-500 hover:text-gray-700 uppercase tracking-widest"
               >

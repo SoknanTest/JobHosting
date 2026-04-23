@@ -15,10 +15,10 @@ import { cn } from '@/lib/utils';
 
 const menuItems = [
   { icon: LayoutDashboard, label: 'Dashboard', href: '/seeker' },
-  { icon: Briefcase, label: 'Applications', href: '/applications' },
-  { icon: MessageSquare, label: 'Messages', href: '/chat' },
-  { icon: Bell, label: 'Notifications', href: '/notifications' },
-  { icon: User, label: 'Profile', href: '/profile' },
+  { icon: Briefcase, label: 'Applications', href: '/seeker/applications' },
+  { icon: MessageSquare, label: 'Messages', href: '/seeker/chat' },
+  { icon: Bell, label: 'Notifications', href: '/seeker/notifications' },
+  { icon: User, label: 'Profile', href: '/seeker/profile' },
   { icon: Settings, label: 'Settings', href: '/settings' },
 ];
 

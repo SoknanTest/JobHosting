@@ -40,6 +40,21 @@ export class ApplicationsController {
     return applications.map((app) => ApplicationMapper.toDto(app));
   }
 
+  @Get('employer')
+  @Roles(Role.EMPLOYER)
+  @ApiOperation({ summary: 'Get all applications to my jobs (Employer only)' })
+  @ApiResponse({ status: 200, type: [ApplicationResponseDto] })
+  @ApiResponse({ status: 401, type: ErrorResponseDto })
+  @ApiResponse({ status: 500, type: ErrorResponseDto })
+  async findEmployerApplications(
+    @CurrentUser() user: JwtPayload,
+  ): Promise<ApplicationResponseDto[]> {
+    const applications = await this.applicationsService.findEmployerApplications(
+      user.sub,
+    );
+    return applications.map((app) => ApplicationMapper.toDto(app));
+  }
+
   @Patch(':id/status')
   @Roles(Role.EMPLOYER)
   @ApiOperation({ summary: 'Update application status (Employer only)' })

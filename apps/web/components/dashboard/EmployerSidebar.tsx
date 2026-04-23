@@ -20,8 +20,8 @@ const menuItems = [
   { icon: Briefcase, label: 'My Jobs', href: '/employer/jobs' },
   { icon: PlusCircle, label: 'Post a Job', href: '/employer/jobs/new' },
   { icon: Users, label: 'Applicants', href: '/employer/applicants' },
-  { icon: MessageSquare, label: 'Messages', href: '/chat' },
-  { icon: Bell, label: 'Notifications', href: '/notifications' },
+  { icon: MessageSquare, label: 'Messages', href: '/employer/chat' },
+  { icon: Bell, label: 'Notifications', href: '/employer/notifications' },
   { icon: Building, label: 'Company Profile', href: '/employer/company' },
   { icon: Settings, label: 'Settings', href: '/settings' },
 ];

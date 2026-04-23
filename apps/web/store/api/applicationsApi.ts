@@ -11,6 +11,10 @@ export const applicationsApi = apiSlice.injectEndpoints({
       query: () => '/applications/mine',
       providesTags: ['Application'],
     }),
+    getEmployerApplications: builder.query<Application[], void>({
+      query: () => '/applications/employer',
+      providesTags: ['Application'],
+    }),
     updateApplicationStatus: builder.mutation<Application, { id: string; status: ApplicationStatus }>({
       query: ({ id, status }) => ({
         url: `/applications/${id}/status`,
@@ -24,5 +28,6 @@ export const applicationsApi = apiSlice.injectEndpoints({
 
 export const {
   useGetMyApplicationsQuery,
+  useGetEmployerApplicationsQuery,
   useUpdateApplicationStatusMutation,
 } = applicationsApi;

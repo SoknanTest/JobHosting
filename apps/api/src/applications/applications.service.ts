@@ -56,6 +56,20 @@ export class ApplicationsService {
     });
   }
 
+  async findEmployerApplications(
+    userId: string,
+  ): Promise<ApplicationWithRelations[]> {
+    return this.prisma.application.findMany({
+      where: {
+        job: {
+          employerId: userId,
+        },
+      },
+      include: applicationInclude,
+      orderBy: { createdAt: 'desc' },
+    });
+  }
+
   async findJobApplicants(
     jobId: string,
     userId: string,

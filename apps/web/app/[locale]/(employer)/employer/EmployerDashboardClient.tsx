@@ -58,15 +58,15 @@ export default function EmployerDashboardClient() {
             <h3 className="text-2xl font-bold text-gray-900">{stats.activeJobs}</h3>
           </div>
         </div>
-        <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex items-center gap-4">
-          <div className="h-12 w-12 bg-green-50 rounded-lg flex items-center justify-center text-green-600">
+        <Link href="/employer/applicants" className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex items-center gap-4 hover:border-indigo-600 transition-all group">
+          <div className="h-12 w-12 bg-green-50 rounded-lg flex items-center justify-center text-green-600 group-hover:bg-green-600 group-hover:text-white transition-all">
             <Users className="h-6 w-6" />
           </div>
           <div>
             <p className="text-sm text-gray-500 font-medium">Total Applicants</p>
             <h3 className="text-2xl font-bold text-gray-900">{stats.totalApplicants}</h3>
           </div>
-        </div>
+        </Link>
         <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex items-center gap-4">
           <div className="h-12 w-12 bg-yellow-50 rounded-lg flex items-center justify-center text-yellow-600">
             <Eye className="h-6 w-6" />
