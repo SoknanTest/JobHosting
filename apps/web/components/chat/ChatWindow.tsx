@@ -71,7 +71,7 @@ export default function ChatWindow({ conversationId, recipientName }: ChatWindow
   }
 
   return (
-    <div className="flex-1 flex flex-col bg-gray-50/30">
+    <div className="flex-1 flex flex-col bg-gray-300/40">
       {/* Header */}
       <div className="p-4 bg-white border-b flex items-center justify-between px-8">
         <div className="flex items-center gap-3">
@@ -83,7 +83,7 @@ export default function ChatWindow({ conversationId, recipientName }: ChatWindow
             <p className="text-[10px] text-green-500 font-black uppercase tracking-tighter">Online</p>
           </div>
         </div>
-        <button className="text-gray-400 hover:text-gray-600 p-2 rounded-xl hover:bg-gray-50 transition-all">
+        <button className="text-gray-900 hover:text-gray-900 p-2 rounded-xl hover:bg-gray-300 transition-all">
           <MoreVertical className="h-5 w-5" />
         </button>
       </div>
@@ -98,8 +98,8 @@ export default function ChatWindow({ conversationId, recipientName }: ChatWindow
 
       {/* Input Area */}
       <div className="p-6 bg-white border-t">
-        <form onSubmit={handleSendMessage} className="flex items-center gap-4 bg-gray-50 p-2 rounded-2xl border border-gray-100 focus-within:ring-2 focus-within:ring-indigo-100 focus-within:bg-white transition-all">
-          <button type="button" className="p-2 text-gray-400 hover:text-indigo-600 transition-colors">
+        <form onSubmit={handleSendMessage} className="flex items-center gap-4 bg-gray-300 p-2 rounded-2xl border border-gray-400 focus-within:ring-2 focus-within:ring-indigo-100 focus-within:bg-white transition-all">
+          <button type="button" className="p-2 text-gray-900 hover:text-indigo-600 transition-colors">
             <Paperclip className="h-5 w-5" />
           </button>
           <input 
@@ -117,3 +117,5 @@ export default function ChatWindow({ conversationId, recipientName }: ChatWindow
     </div>
   );
 }
+
+

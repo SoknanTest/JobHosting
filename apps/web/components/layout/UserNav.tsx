@@ -30,7 +30,7 @@ export default function UserNav() {
       <div className="flex items-center gap-3">
         <Link
           href="/login"
-          className="flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-indigo-600 transition-colors"
+          className="flex items-center gap-1 text-sm font-medium text-gray-900 hover:text-indigo-600 transition-colors"
         >
           <LogIn className="h-4 w-4" />
           <span>{t('login')}</span>
@@ -54,17 +54,17 @@ export default function UserNav() {
       <NotificationBell />
       
       {/* Messages */}
-      <Link href={`${dashboardHref}/chat`} className="text-gray-500 hover:text-indigo-600 transition-colors">
+      <Link href={`${dashboardHref}/chat`} className="text-gray-900 hover:text-indigo-600 transition-colors">
         <MessageSquare className="h-5 w-5" />
       </Link>
 
-      <div className="h-6 w-px bg-gray-200" />
+      <div className="h-6 w-px bg-gray-400" />
 
       {/* User Menu */}
       <div className="flex items-center gap-4">
         <Link
           href={dashboardHref}
-          className="flex items-center gap-1 text-sm font-medium text-gray-700 hover:text-indigo-600 transition-colors"
+          className="flex items-center gap-1 text-sm font-medium text-gray-900 hover:text-indigo-600 transition-colors"
         >
           <LayoutDashboard className="h-4 w-4" />
           <span className="hidden sm:inline">{t('dashboard')}</span>
@@ -80,3 +80,5 @@ export default function UserNav() {
     </div>
   );
 }
+
+

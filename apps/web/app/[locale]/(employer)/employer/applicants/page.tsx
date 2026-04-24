@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useGetEmployerApplicationsQuery, useUpdateApplicationStatusMutation } from '@/store/api/applicationsApi';
 import { 
@@ -45,13 +45,13 @@ export default function EmployerApplicantsPage() {
           <Users className="h-8 w-8 text-indigo-600" />
           All Applicants
         </h1>
-        <p className="mt-2 text-gray-600 font-medium">Review and manage all candidates who applied to your jobs</p>
+        <p className="mt-2 text-gray-900 font-medium">Review and manage all candidates who applied to your jobs</p>
       </div>
 
       <div className="grid grid-cols-1 gap-6">
         {applications && applications.length > 0 ? (
           applications.map((app) => (
-            <div key={app.id} className="bg-white rounded-3xl border border-gray-100 shadow-xl overflow-hidden group hover:border-indigo-100 transition-all">
+            <div key={app.id} className="bg-white rounded-3xl border border-gray-400 shadow-xl overflow-hidden group hover:border-indigo-100 transition-all">
               <div className="p-8 flex flex-col lg:flex-row gap-8">
                 <div className="flex-1">
                   <div className="flex items-center justify-between mb-6">
@@ -64,7 +64,7 @@ export default function EmployerApplicantsPage() {
                           {app.seeker?.profile?.firstName} {app.seeker?.profile?.lastName}
                         </h3>
                         <p className="text-sm text-indigo-600 font-bold mt-2 flex items-center gap-1.5">
-                          <span className="text-gray-400 font-medium">Applied for:</span> {app.job?.title}
+                          <span className="text-gray-600 font-medium">Applied for:</span> {app.job?.title}
                         </p>
                       </div>
                     </div>
@@ -80,14 +80,14 @@ export default function EmployerApplicantsPage() {
                   </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    <div className="flex items-center gap-3 text-sm text-gray-600 font-medium">
-                      <div className="h-8 w-8 rounded-lg bg-gray-50 flex items-center justify-center text-gray-400">
+                    <div className="flex items-center gap-3 text-sm text-gray-900 font-medium">
+                      <div className="h-8 w-8 rounded-lg bg-gray-300 flex items-center justify-center text-gray-600">
                         <Mail className="h-4 w-4" />
                       </div>
                       {app.seeker?.email}
                     </div>
-                    <div className="flex items-center gap-3 text-sm text-gray-600 font-medium">
-                      <div className="h-8 w-8 rounded-lg bg-gray-50 flex items-center justify-center text-gray-400">
+                    <div className="flex items-center gap-3 text-sm text-gray-900 font-medium">
+                      <div className="h-8 w-8 rounded-lg bg-gray-300 flex items-center justify-center text-gray-600">
                         <Clock className="h-4 w-4" />
                       </div>
                       {new Date(app.createdAt).toLocaleDateString()}
@@ -95,27 +95,27 @@ export default function EmployerApplicantsPage() {
                   </div>
 
                   {app.coverNote && (
-                    <div className="bg-gray-50/50 p-6 rounded-2xl border border-gray-50 mb-6">
-                      <h4 className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-3">Cover Note</h4>
-                      <p className="text-sm text-gray-700 leading-relaxed italic">
+                    <div className="bg-gray-300/50 p-6 rounded-2xl border border-gray-600 mb-6">
+                      <h4 className="text-[10px] font-black text-gray-600 uppercase tracking-widest mb-3">Cover Note</h4>
+                      <p className="text-sm text-gray-900 leading-relaxed italic">
                         "{app.coverNote}"
                       </p>
                     </div>
                   )}
 
                   <div className="flex items-center gap-3">
-                    <button className="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-100 rounded-xl text-xs font-black uppercase tracking-widest text-gray-500 hover:text-indigo-600 hover:border-indigo-100 transition-all shadow-sm active:scale-95">
+                    <button className="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-400 rounded-xl text-xs font-black uppercase tracking-widest text-gray-900 hover:text-indigo-600 hover:border-indigo-100 transition-all shadow-sm active:scale-95">
                       <Download className="h-4 w-4" />
                       Resume
                     </button>
-                    <button className="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-100 rounded-xl text-xs font-black uppercase tracking-widest text-gray-500 hover:text-indigo-600 hover:border-indigo-100 transition-all shadow-sm active:scale-95">
+                    <button className="flex items-center gap-2 px-5 py-2.5 bg-white border border-gray-400 rounded-xl text-xs font-black uppercase tracking-widest text-gray-900 hover:text-indigo-600 hover:border-indigo-100 transition-all shadow-sm active:scale-95">
                       <ExternalLink className="h-4 w-4" />
                       Profile
                     </button>
                   </div>
                 </div>
 
-                <div className="lg:w-56 flex flex-col gap-3 justify-center border-l border-gray-50 lg:pl-8">
+                <div className="lg:w-56 flex flex-col gap-3 justify-center border-l border-gray-600 lg:pl-8">
                   <button 
                     onClick={() => handleUpdateStatus(app.id, 'ACCEPTED')}
                     className="w-full flex items-center justify-center gap-2 py-3 bg-indigo-600 text-white rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-indigo-700 transition-all shadow-lg shadow-indigo-100 active:scale-95"
@@ -125,7 +125,7 @@ export default function EmployerApplicantsPage() {
                   </button>
                   <button 
                     onClick={() => handleUpdateStatus(app.id, 'REVIEWED')}
-                    className="w-full flex items-center justify-center gap-2 py-3 bg-white text-gray-700 border border-gray-100 rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-gray-50 transition-all shadow-sm active:scale-95"
+                    className="w-full flex items-center justify-center gap-2 py-3 bg-white text-gray-900 border border-gray-400 rounded-2xl text-xs font-black uppercase tracking-widest hover:bg-gray-400 transition-all shadow-sm active:scale-95"
                   >
                     <Clock className="h-4 w-4" />
                     Shortlist
@@ -142,15 +142,16 @@ export default function EmployerApplicantsPage() {
             </div>
           ))
         ) : (
-          <div className="bg-white p-20 rounded-3xl border border-dashed border-gray-200 text-center shadow-inner">
-            <div className="h-20 w-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-6 text-gray-300">
+          <div className="bg-white p-20 rounded-3xl border border-dashed border-gray-500 text-center shadow-inner">
+            <div className="h-20 w-20 bg-gray-300 rounded-full flex items-center justify-center mx-auto mb-6 text-gray-600">
               <Users className="h-10 w-10" />
             </div>
             <h3 className="text-xl font-black text-gray-900 uppercase tracking-tight">No applicants yet</h3>
-            <p className="text-gray-500 mt-2 font-medium max-w-xs mx-auto">When candidates apply to your job postings, they will appear here for your review.</p>
+            <p className="text-gray-900 mt-2 font-medium max-w-xs mx-auto">When candidates apply to your job postings, they will appear here for your review.</p>
           </div>
         )}
       </div>
     </div>
   );
 }
+

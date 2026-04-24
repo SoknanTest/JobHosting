@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import { useGetJobsQuery } from '@/store/api/jobsApi';
@@ -62,7 +62,7 @@ export default function JobsListClient({
     <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
       {/* Filters Sidebar */}
       <div className="lg:col-span-1 space-y-8">
-        <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
+        <div className="bg-white p-6 rounded-xl border border-gray-400 shadow-sm">
           <div className="flex items-center gap-2 mb-6 text-gray-900 font-bold">
             <Filter className="h-5 w-5 text-indigo-600" />
             <h2>{t('filters')}</h2>
@@ -70,7 +70,7 @@ export default function JobsListClient({
           
           <div className="space-y-6">
             <div>
-              <label className="text-sm font-semibold text-gray-700 block mb-3">{t('type.label')}</label>
+              <label className="text-sm font-semibold text-gray-900 block mb-3">{t('type.label')}</label>
               <div className="space-y-2">
                 {['FULL_TIME', 'PART_TIME', 'FREELANCE', 'INTERNSHIP'].map((jobType) => (
                   <label key={jobType} className="flex items-center gap-2 cursor-pointer group">
@@ -79,9 +79,9 @@ export default function JobsListClient({
                       value={jobType}
                       checked={type === jobType}
                       onChange={handleTypeChange}
-                      className="rounded text-indigo-600 focus:ring-indigo-500 h-4 w-4 border-gray-300 transition-all" 
+                      className="rounded text-indigo-600 focus:ring-indigo-500 h-4 w-4 border-gray-600 transition-all" 
                     />
-                    <span className="text-sm text-gray-600 group-hover:text-gray-900">
+                    <span className="text-sm text-gray-900 group-hover:text-gray-900">
                       {t(`type.${jobType.toLowerCase().replace('_', '')}` as any)}
                     </span>
                   </label>
@@ -90,11 +90,11 @@ export default function JobsListClient({
             </div>
 
             <div>
-              <label className="text-sm font-semibold text-gray-700 block mb-3">{commonT('location')}</label>
+              <label className="text-sm font-semibold text-gray-900 block mb-3">{commonT('location')}</label>
               <select 
                 value={location}
                 onChange={(e) => { setLocation(e.target.value); setPage(1); }}
-                className="block w-full rounded-lg border border-gray-200 py-2 pl-3 pr-10 text-sm focus:border-indigo-500 focus:ring-indigo-500"
+                className="block w-full rounded-lg border border-gray-500 py-2 pl-3 pr-10 text-sm focus:border-indigo-500 focus:ring-indigo-500"
               >
                 <option value="">{t('allLocations')}</option>
                 <option value="Phnom Penh">Phnom Penh</option>
@@ -106,22 +106,22 @@ export default function JobsListClient({
             </div>
 
             <div>
-              <label className="text-sm font-semibold text-gray-700 block mb-3">{t('salaryRange')}</label>
+              <label className="text-sm font-semibold text-gray-900 block mb-3">{t('salaryRange')}</label>
               <div className="flex items-center gap-2">
                 <input 
                   type="number" 
                   value={salaryMin || ''}
                   onChange={(e) => { setSalaryMin(e.target.value ? Number(e.target.value) : undefined); setPage(1); }}
                   placeholder="Min" 
-                  className="w-full rounded-lg border border-gray-200 py-2 px-3 text-sm focus:border-indigo-500 focus:ring-indigo-500" 
+                  className="w-full rounded-lg border border-gray-500 py-2 px-3 text-sm focus:border-indigo-500 focus:ring-indigo-500" 
                 />
-                <span className="text-gray-400">-</span>
+                <span className="text-gray-900">-</span>
                 <input 
                   type="number" 
                   value={salaryMax || ''}
                   onChange={(e) => { setSalaryMax(e.target.value ? Number(e.target.value) : undefined); setPage(1); }}
                   placeholder="Max" 
-                  className="w-full rounded-lg border border-gray-200 py-2 px-3 text-sm focus:border-indigo-500 focus:ring-indigo-500" 
+                  className="w-full rounded-lg border border-gray-500 py-2 px-3 text-sm focus:border-indigo-500 focus:ring-indigo-500" 
                 />
               </div>
             </div>
@@ -134,7 +134,7 @@ export default function JobsListClient({
         <div className="mb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex-1 max-w-lg">
             <form onSubmit={handleSearchSubmit} className="relative group">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400 group-focus-within:text-indigo-600 transition-colors">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-900 group-focus-within:text-indigo-600 transition-colors">
                 <Search className="h-5 w-5" />
               </div>
               <input
@@ -142,13 +142,13 @@ export default function JobsListClient({
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder={commonT('search')}
-                className="block w-full pl-10 pr-3 py-3 border border-gray-200 rounded-xl leading-5 bg-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent sm:text-sm shadow-sm transition-all"
+                className="block w-full pl-10 pr-3 py-3 border border-gray-500 rounded-xl leading-5 bg-white placeholder-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-transparent sm:text-sm shadow-sm transition-all"
               />
             </form>
           </div>
           
           <div className="flex items-center justify-between gap-4">
-            <span className="text-sm text-gray-500">
+            <span className="text-sm text-gray-900">
               {t('showingJobs', { count: meta.total })}
             </span>
             {(isLoading || isFetching) && <Loader2 className="h-5 w-5 animate-spin text-indigo-600" />}
@@ -166,7 +166,7 @@ export default function JobsListClient({
             ))
           ) : (
             <div className="bg-white p-12 rounded-xl border border-dashed text-center">
-              <p className="text-gray-500 font-medium">{t('noJobsFound')}</p>
+              <p className="text-gray-900 font-medium">{t('noJobsFound')}</p>
             </div>
           )}
         </div>
@@ -177,7 +177,7 @@ export default function JobsListClient({
             <button 
               disabled={meta.page <= 1 || isFetching} 
               onClick={() => setPage(prev => prev - 1)}
-              className="px-4 py-2 border rounded-lg text-sm font-medium disabled:opacity-50 hover:bg-gray-50"
+              className="px-4 py-2 border rounded-lg text-sm font-medium disabled:opacity-50 hover:bg-gray-400"
             >
               {commonT('previous')}
             </button>
@@ -185,7 +185,7 @@ export default function JobsListClient({
             <button 
               disabled={meta.page >= meta.totalPages || isFetching} 
               onClick={() => setPage(prev => prev + 1)}
-              className="px-4 py-2 border rounded-lg text-sm font-medium disabled:opacity-50 hover:bg-gray-50"
+              className="px-4 py-2 border rounded-lg text-sm font-medium disabled:opacity-50 hover:bg-gray-400"
             >
               {commonT('next')}
             </button>
@@ -195,3 +195,5 @@ export default function JobsListClient({
     </div>
   );
 }
+
+

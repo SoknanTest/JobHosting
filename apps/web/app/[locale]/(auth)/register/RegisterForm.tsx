@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -68,7 +68,7 @@ export default function RegisterForm() {
       )}
       {/* Role Selection */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-3">
+        <label className="block text-sm font-medium text-gray-900 mb-3">
           {t('role')}
         </label>
         <div className="grid grid-cols-2 gap-4">
@@ -79,7 +79,7 @@ export default function RegisterForm() {
               "flex flex-col items-center justify-center p-4 rounded-lg border-2 transition-all",
               selectedRole === 'SEEKER' 
                 ? "border-indigo-600 bg-indigo-50 text-indigo-700" 
-                : "border-gray-200 hover:border-gray-300 text-gray-500"
+                : "border-gray-500 hover:border-gray-600 text-gray-900"
             )}
           >
             <User className="h-6 w-6 mb-2" />
@@ -92,7 +92,7 @@ export default function RegisterForm() {
               "flex flex-col items-center justify-center p-4 rounded-lg border-2 transition-all",
               selectedRole === 'EMPLOYER' 
                 ? "border-indigo-600 bg-indigo-50 text-indigo-700" 
-                : "border-gray-200 hover:border-gray-300 text-gray-500"
+                : "border-gray-500 hover:border-gray-600 text-gray-900"
             )}
           >
             <Building2 className="h-6 w-6 mb-2" />
@@ -106,7 +106,7 @@ export default function RegisterForm() {
 
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="firstName" className="block text-sm font-medium text-gray-900">
             {t('firstName')}
           </label>
           <div className="mt-1">
@@ -114,7 +114,7 @@ export default function RegisterForm() {
               {...register('firstName')}
               type="text"
               id="firstName"
-              className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+              className="block w-full appearance-none rounded-md border border-gray-600 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
             />
             {errors.firstName && (
               <p className="mt-2 text-sm text-red-600">{errors.firstName.message}</p>
@@ -122,7 +122,7 @@ export default function RegisterForm() {
           </div>
         </div>
         <div>
-          <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">
+          <label htmlFor="lastName" className="block text-sm font-medium text-gray-900">
             {t('lastName')}
           </label>
           <div className="mt-1">
@@ -130,7 +130,7 @@ export default function RegisterForm() {
               {...register('lastName')}
               type="text"
               id="lastName"
-              className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+              className="block w-full appearance-none rounded-md border border-gray-600 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
             />
             {errors.lastName && (
               <p className="mt-2 text-sm text-red-600">{errors.lastName.message}</p>
@@ -140,7 +140,7 @@ export default function RegisterForm() {
       </div>
 
       <div>
-        <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+        <label htmlFor="email" className="block text-sm font-medium text-gray-900">
           {commonT('email')}
         </label>
         <div className="mt-1">
@@ -148,7 +148,7 @@ export default function RegisterForm() {
             {...register('email')}
             type="email"
             id="email"
-            className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+            className="block w-full appearance-none rounded-md border border-gray-600 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
           />
           {errors.email && (
             <p className="mt-2 text-sm text-red-600">{errors.email.message}</p>
@@ -157,7 +157,7 @@ export default function RegisterForm() {
       </div>
 
       <div>
-        <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+        <label htmlFor="password" className="block text-sm font-medium text-gray-900">
           {commonT('password')}
         </label>
         <div className="mt-1 relative">
@@ -165,11 +165,11 @@ export default function RegisterForm() {
             {...register('password')}
             type={showPassword ? 'text' : 'password'}
             id="password"
-            className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+            className="block w-full appearance-none rounded-md border border-gray-600 px-3 py-2 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
           />
           <button
             type="button"
-            className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+            className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-600 hover:text-gray-900"
             onClick={() => setShowPassword(!showPassword)}
           >
             {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
@@ -191,7 +191,7 @@ export default function RegisterForm() {
       </div>
 
       <div className="mt-6 text-center text-sm">
-        <span className="text-gray-600">{t('alreadyHaveAccount')} </span>
+        <span className="text-gray-900">{t('alreadyHaveAccount')} </span>
         <Link href="/login" className="font-medium text-indigo-600 hover:text-indigo-500">
           {t('login')}
         </Link>
@@ -199,3 +199,4 @@ export default function RegisterForm() {
     </form>
   );
 }
+

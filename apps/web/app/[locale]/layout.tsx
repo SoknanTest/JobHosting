@@ -45,7 +45,7 @@ export default async function RootLayout({
 
   return (
     <html lang={locale} className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-gray-50">
+      <body className="min-h-full flex flex-col bg-gray-300">
         <Providers messages={messages} locale={locale}>
           <Navbar />
           <div className="flex-1">

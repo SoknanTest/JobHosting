@@ -34,14 +34,16 @@ export default function MessageBubble({ message, isMe }: MessageBubbleProps) {
       <div className="h-8 w-8 rounded-lg bg-indigo-100 flex items-center justify-center text-indigo-600 text-xs font-bold flex-shrink-0">
         {senderInitial}
       </div>
-      <div className="bg-white p-4 rounded-2xl rounded-bl-none border border-gray-100 shadow-sm shadow-indigo-50/20">
-        <p className="text-sm text-gray-700 leading-relaxed">
+      <div className="bg-white p-4 rounded-2xl rounded-bl-none border border-gray-400 shadow-sm shadow-indigo-200/20">
+        <p className="text-sm text-gray-900 leading-relaxed">
           {message.content}
         </p>
-        <span className="text-[9px] text-gray-400 font-bold uppercase mt-2 block">
+        <span className="text-[9px] text-gray-900 font-bold uppercase mt-2 block">
           {formatDistanceToNow(new Date(message.createdAt), { addSuffix: true })}
         </span>
       </div>
     </div>
   );
 }
+
+

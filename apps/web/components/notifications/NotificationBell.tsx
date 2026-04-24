@@ -55,7 +55,7 @@ export default function NotificationBell() {
     <div className="relative">
       <button 
         onClick={() => setIsOpen(!isOpen)}
-        className="relative p-2 text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all"
+        className="relative p-2 text-gray-900 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl transition-all"
       >
         <Bell className="h-6 w-6" />
         {unreadCount > 0 && (
@@ -68,8 +68,8 @@ export default function NotificationBell() {
       {isOpen && (
         <>
           <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)} />
-          <div className="absolute right-0 mt-2 w-80 bg-white rounded-3xl border border-gray-100 shadow-2xl z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
-            <div className="p-4 border-b flex items-center justify-between px-6 bg-gray-50/50">
+          <div className="absolute right-0 mt-2 w-80 bg-white rounded-3xl border border-gray-400 shadow-2xl z-50 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
+            <div className="p-4 border-b flex items-center justify-between px-6 bg-gray-300/60">
               <h3 className="text-sm font-black text-gray-900 uppercase tracking-widest">Notifications</h3>
               {unreadCount > 0 && (
                 <button 
@@ -91,14 +91,14 @@ export default function NotificationBell() {
                   <div 
                     key={notification.id}
                     onClick={() => handleMarkAsRead(notification.id)}
-                    className={`p-4 border-b last:border-0 hover:bg-gray-50 transition-colors cursor-pointer relative ${!notification.isRead ? 'bg-indigo-50/20' : ''}`}
+                    className={`p-4 border-b last:border-0 hover:bg-gray-400 transition-colors cursor-pointer relative ${!notification.isRead ? 'bg-indigo-50/20' : ''}`}
                   >
                     {!notification.isRead && (
                       <div className="absolute left-2 top-1/2 -translate-y-1/2 h-1.5 w-1.5 rounded-full bg-indigo-600" />
                     )}
                     <div className="pl-2">
                       <p className="text-sm text-gray-900 font-bold leading-tight mb-1">{notification.message}</p>
-                      <p className="text-[10px] text-gray-400 font-black uppercase tracking-tighter">
+                      <p className="text-[10px] text-gray-900 font-black uppercase tracking-tighter">
                         {formatDistanceToNow(new Date(notification.createdAt), { addSuffix: true })}
                       </p>
                     </div>
@@ -106,20 +106,20 @@ export default function NotificationBell() {
                 ))
               ) : (
                 <div className="p-10 text-center flex flex-col items-center">
-                  <div className="h-12 w-12 bg-gray-50 rounded-2xl flex items-center justify-center text-gray-300 mb-3 border border-gray-100">
+                  <div className="h-12 w-12 bg-gray-300 rounded-2xl flex items-center justify-center text-gray-600 mb-3 border border-gray-400">
                     <CheckCircle2 className="h-6 w-6" />
                   </div>
-                  <p className="text-sm text-gray-400 font-bold uppercase tracking-widest leading-none">All caught up!</p>
-                  <p className="text-[10px] text-gray-400 mt-2 font-medium">No new notifications at the moment.</p>
+                  <p className="text-sm text-gray-900 font-bold uppercase tracking-widest leading-none">All caught up!</p>
+                  <p className="text-[10px] text-gray-900 mt-2 font-medium">No new notifications at the moment.</p>
                 </div>
               )}
             </div>
             
-            <div className="p-4 border-t text-center bg-gray-50/30">
+            <div className="p-4 border-t text-center bg-gray-300/40">
               <Link 
                 href={notificationsHref} 
                 onClick={() => setIsOpen(false)}
-                className="text-[10px] font-black text-gray-500 hover:text-gray-700 uppercase tracking-widest"
+                className="text-[10px] font-black text-gray-900 hover:text-gray-900 uppercase tracking-widest"
               >
                 View all activity
               </Link>
@@ -130,3 +130,5 @@ export default function NotificationBell() {
     </div>
   );
 }
+
+

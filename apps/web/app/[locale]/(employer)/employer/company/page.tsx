@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useTranslations } from 'next-intl';
 import { Building, Globe, MapPin, Mail, Save, Loader2 } from 'lucide-react';
@@ -26,13 +26,13 @@ export default function CompanyProfilePage() {
           <Building className="h-8 w-8 text-indigo-600" />
           Company Profile
         </h1>
-        <p className="mt-2 text-gray-600 font-medium">Manage your company details and how they appear to candidates</p>
+        <p className="mt-2 text-gray-900 font-medium">Manage your company details and how they appear to candidates</p>
       </div>
 
-      <div className="bg-white rounded-3xl border border-gray-100 shadow-xl overflow-hidden">
-        <div className="p-8 border-b border-gray-50 bg-gray-50/30">
+      <div className="bg-white rounded-3xl border border-gray-400 shadow-xl overflow-hidden">
+        <div className="p-8 border-b border-gray-600 bg-gray-300/30">
           <div className="flex flex-col md:flex-row gap-8 items-start">
-            <div className="h-32 w-32 rounded-3xl bg-white border-2 border-dashed border-gray-200 flex items-center justify-center text-gray-400 group hover:border-indigo-300 transition-all cursor-pointer overflow-hidden shadow-inner">
+            <div className="h-32 w-32 rounded-3xl bg-white border-2 border-dashed border-gray-500 flex items-center justify-center text-gray-900 group hover:border-indigo-300 transition-all cursor-pointer overflow-hidden shadow-inner">
               {company?.logo ? (
                 <img src={company.logo} alt={company.name} className="h-full w-full object-cover" />
               ) : (
@@ -41,36 +41,36 @@ export default function CompanyProfilePage() {
             </div>
             <div className="flex-1 space-y-4">
               <div>
-                <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Company Name</label>
+                <label className="block text-[10px] font-black text-gray-900 uppercase tracking-widest mb-1">Company Name</label>
                 <input 
                   type="text" 
                   defaultValue={company?.name || ''} 
                   placeholder="e.g. Tech Cambodia"
-                  className="w-full px-4 py-3 bg-white border border-gray-100 rounded-2xl shadow-sm focus:ring-2 focus:ring-indigo-100 outline-none transition-all font-bold text-gray-900"
+                  className="w-full px-4 py-3 bg-white border border-gray-400 rounded-2xl shadow-sm focus:ring-2 focus:ring-indigo-100 outline-none transition-all font-bold text-gray-900"
                 />
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Website</label>
+                  <label className="block text-[10px] font-black text-gray-900 uppercase tracking-widest mb-1">Website</label>
                   <div className="relative">
-                    <Globe className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                    <Globe className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-900" />
                     <input 
                       type="url" 
                       defaultValue={company?.website || ''} 
                       placeholder="https://example.com"
-                      className="w-full pl-11 pr-4 py-3 bg-white border border-gray-100 rounded-2xl shadow-sm focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-sm font-medium"
+                      className="w-full pl-11 pr-4 py-3 bg-white border border-gray-400 rounded-2xl shadow-sm focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-sm font-medium"
                     />
                   </div>
                 </div>
                 <div>
-                  <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Location</label>
+                  <label className="block text-[10px] font-black text-gray-900 uppercase tracking-widest mb-1">Location</label>
                   <div className="relative">
-                    <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                    <MapPin className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-900" />
                     <input 
                       type="text" 
                       defaultValue={company?.location || ''} 
                       placeholder="e.g. Phnom Penh"
-                      className="w-full pl-11 pr-4 py-3 bg-white border border-gray-100 rounded-2xl shadow-sm focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-sm font-medium"
+                      className="w-full pl-11 pr-4 py-3 bg-white border border-gray-400 rounded-2xl shadow-sm focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-sm font-medium"
                     />
                   </div>
                 </div>
@@ -81,12 +81,12 @@ export default function CompanyProfilePage() {
 
         <div className="p-8 space-y-6">
           <div>
-            <label className="block text-[10px] font-black text-gray-400 uppercase tracking-widest mb-2">About the Company</label>
+            <label className="block text-[10px] font-black text-gray-900 uppercase tracking-widest mb-2">About the Company</label>
             <textarea 
               rows={6}
               defaultValue={company?.description || ''}
               placeholder="Tell job seekers about your company culture, mission, and what it's like to work there..."
-              className="w-full px-4 py-3 bg-white border border-gray-100 rounded-2xl shadow-sm focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-sm leading-relaxed"
+              className="w-full px-4 py-3 bg-white border border-gray-400 rounded-2xl shadow-sm focus:ring-2 focus:ring-indigo-100 outline-none transition-all text-sm leading-relaxed"
             />
           </div>
 
@@ -101,3 +101,4 @@ export default function CompanyProfilePage() {
     </div>
   );
 }
+

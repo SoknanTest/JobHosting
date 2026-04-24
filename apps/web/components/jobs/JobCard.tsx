@@ -33,7 +33,7 @@ export default function JobCard({ job }: JobCardProps) {
         : t('salaryNotSpecified');
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition-shadow">
+    <div className="bg-white rounded-xl shadow-sm border border-gray-400 p-6 hover:shadow-md transition-shadow">
       <div className="flex items-start justify-between gap-4">
         <div className="flex items-start gap-4">
           <div className="h-12 w-12 rounded-lg bg-indigo-50 flex items-center justify-center text-indigo-600 font-bold text-xl flex-shrink-0 border border-indigo-100 overflow-hidden">
@@ -59,7 +59,7 @@ export default function JobCard({ job }: JobCardProps) {
         </div>
       </div>
 
-      <div className="mt-4 grid grid-cols-2 gap-4 text-sm text-gray-500">
+      <div className="mt-4 grid grid-cols-2 gap-4 text-sm text-gray-900">
         <div className="flex items-center gap-1.5">
           <MapPin className="h-4 w-4" />
           <span>{job.location}</span>
@@ -95,3 +95,5 @@ export default function JobCard({ job }: JobCardProps) {
     </div>
   );
 }
+
+

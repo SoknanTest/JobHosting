@@ -38,13 +38,13 @@ export default function DashboardSidebar() {
                 "flex items-center justify-between px-3 py-2 rounded-lg text-sm font-medium transition-all group",
                 isActive 
                   ? "bg-indigo-50 text-indigo-700 shadow-sm shadow-indigo-100" 
-                  : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                  : "text-gray-900 hover:bg-gray-400 hover:text-gray-900"
               )}
             >
               <div className="flex items-center gap-3">
                 <item.icon className={cn(
                   "h-5 w-5",
-                  isActive ? "text-indigo-600" : "text-gray-400 group-hover:text-gray-600"
+                  isActive ? "text-indigo-600" : "text-gray-900 group-hover:text-gray-900"
                 )} />
                 {item.label}
               </div>
@@ -63,3 +63,5 @@ export default function DashboardSidebar() {
     </aside>
   );
 }
+
+

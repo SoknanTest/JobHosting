@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useGetAllUsersQuery, useToggleUserBanMutation, useUpdateUserRoleMutation } from '@/store/api/adminApi';
 import { User, Mail, Shield, ShieldAlert, Loader2, Ban, CheckCircle } from 'lucide-react';
@@ -40,32 +40,32 @@ export default function UsersManagementClient() {
           <Shield className="h-8 w-8 text-indigo-600" />
           User Management
         </h1>
-        <p className="mt-2 text-gray-600 font-medium">Manage user accounts, roles, and access</p>
+        <p className="mt-2 text-gray-900 font-medium">Manage user accounts, roles, and access</p>
       </div>
 
-      <div className="bg-white rounded-3xl border border-gray-100 shadow-xl overflow-hidden">
-        <table className="min-w-full divide-y divide-gray-100">
-          <thead className="bg-gray-50">
+      <div className="bg-white rounded-3xl border border-gray-400 shadow-xl overflow-hidden">
+        <table className="min-w-full divide-y divide-gray-400">
+          <thead className="bg-gray-300">
             <tr>
-              <th className="px-6 py-4 text-left text-xs font-black text-gray-400 uppercase tracking-widest">User</th>
-              <th className="px-6 py-4 text-left text-xs font-black text-gray-400 uppercase tracking-widest">Role</th>
-              <th className="px-6 py-4 text-left text-xs font-black text-gray-400 uppercase tracking-widest">Status</th>
-              <th className="px-6 py-4 text-right text-xs font-black text-gray-400 uppercase tracking-widest">Actions</th>
+              <th className="px-6 py-4 text-left text-xs font-black text-gray-900 uppercase tracking-widest">User</th>
+              <th className="px-6 py-4 text-left text-xs font-black text-gray-900 uppercase tracking-widest">Role</th>
+              <th className="px-6 py-4 text-left text-xs font-black text-gray-900 uppercase tracking-widest">Status</th>
+              <th className="px-6 py-4 text-right text-xs font-black text-gray-900 uppercase tracking-widest">Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-100">
+          <tbody className="divide-y divide-gray-400">
             {users?.map((user) => (
-              <tr key={user.id} className="hover:bg-gray-50/50 transition-colors">
+              <tr key={user.id} className="hover:bg-gray-400/50 transition-colors">
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-xl bg-gray-100 flex items-center justify-center font-bold text-gray-400">
+                    <div className="h-10 w-10 rounded-xl bg-gray-300 flex items-center justify-center font-bold text-gray-900">
                       {user.profile?.firstName?.charAt(0) || 'U'}
                     </div>
                     <div>
                       <div className="text-sm font-bold text-gray-900 leading-none">
                         {user.profile?.firstName} {user.profile?.lastName}
                       </div>
-                      <div className="text-xs text-gray-500 mt-1 flex items-center gap-1">
+                      <div className="text-xs text-gray-900 mt-1 flex items-center gap-1">
                         <Mail className="h-3 w-3" />
                         {user.email}
                       </div>
@@ -76,7 +76,7 @@ export default function UsersManagementClient() {
                   <select 
                     value={user.role}
                     onChange={(e) => handleRoleChange(user.id, e.target.value)}
-                    className="text-xs font-bold rounded-lg border-gray-200 bg-white py-1 px-2 focus:ring-2 focus:ring-indigo-100 outline-none transition-all"
+                    className="text-xs font-bold rounded-lg border-gray-500 bg-white py-1 px-2 focus:ring-2 focus:ring-indigo-100 outline-none transition-all"
                     disabled={isUpdatingRole}
                   >
                     <option value="SEEKER">Seeker</option>
@@ -114,9 +114,10 @@ export default function UsersManagementClient() {
           </tbody>
         </table>
         {users?.length === 0 && (
-          <div className="py-20 text-center text-gray-400 font-medium">No users found.</div>
+          <div className="py-20 text-center text-gray-900 font-medium">No users found.</div>
         )}
       </div>
     </div>
   );
 }
+

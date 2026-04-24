@@ -19,7 +19,7 @@ export default async function Navbar() {
             </Link>
             
             <div className="hidden md:flex items-center gap-6">
-              <Link href="/jobs" className="text-gray-600 hover:text-indigo-600 font-bold transition-colors text-sm uppercase tracking-wide">
+              <Link href="/jobs" className="text-gray-900 hover:text-indigo-600 font-bold transition-colors text-sm uppercase tracking-wide">
                 {t('jobs')}
               </Link>
               <Link href="/employer/jobs/new" className="flex items-center gap-1 text-indigo-600 hover:text-indigo-700 font-bold transition-colors text-sm uppercase tracking-wide">
@@ -33,7 +33,7 @@ export default async function Navbar() {
           <div className="flex items-center gap-4">
             <LocaleSwitcher />
             
-            <div className="h-6 w-px bg-gray-200 mx-1" />
+            <div className="h-6 w-px bg-gray-400 mx-1" />
 
             <UserNav />
           </div>
@@ -42,3 +42,5 @@ export default async function Navbar() {
     </nav>
   );
 }
+
+

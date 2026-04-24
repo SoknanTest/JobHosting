@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -56,7 +56,7 @@ export default function LoginForm() {
         </div>
       )}
       <div>
-        <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+        <label htmlFor="email" className="block text-sm font-medium text-gray-900">
           {commonT('email')}
         </label>
         <div className="mt-1">
@@ -64,7 +64,7 @@ export default function LoginForm() {
             {...register('email')}
             type="email"
             id="email"
-            className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+            className="block w-full appearance-none rounded-md border border-gray-600 px-3 py-2 placeholder-gray-600 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
           />
           {errors.email && (
             <p className="mt-2 text-sm text-red-600">{errors.email.message}</p>
@@ -73,7 +73,7 @@ export default function LoginForm() {
       </div>
 
       <div>
-        <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+        <label htmlFor="password" className="block text-sm font-medium text-gray-900">
           {commonT('password')}
         </label>
         <div className="mt-1 relative">
@@ -81,11 +81,11 @@ export default function LoginForm() {
             {...register('password')}
             type={showPassword ? 'text' : 'password'}
             id="password"
-            className="block w-full appearance-none rounded-md border border-gray-300 px-3 py-2 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+            className="block w-full appearance-none rounded-md border border-gray-600 px-3 py-2 placeholder-gray-600 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
           />
           <button
             type="button"
-            className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+            className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-600 hover:text-gray-900"
             onClick={() => setShowPassword(!showPassword)}
           >
             {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
@@ -115,7 +115,7 @@ export default function LoginForm() {
       </div>
 
       <div className="mt-6 text-center text-sm">
-        <span className="text-gray-600">{t('dontHaveAccount')} </span>
+        <span className="text-gray-900">{t('dontHaveAccount')} </span>
         <Link href="/register" className="font-medium text-indigo-600 hover:text-indigo-500">
           {t('register')}
         </Link>
@@ -123,3 +123,4 @@ export default function LoginForm() {
     </form>
   );
 }
+

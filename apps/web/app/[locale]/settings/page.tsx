@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useTranslations } from 'next-intl';
 import { Settings, User, Bell, Shield, Lock, Save } from 'lucide-react';
@@ -14,7 +14,7 @@ export default function SettingsPage() {
           <Settings className="h-8 w-8 text-indigo-600" />
           Settings
         </h1>
-        <p className="mt-2 text-gray-600 font-medium">Manage your account preferences and security</p>
+        <p className="mt-2 text-gray-900 font-medium">Manage your account preferences and security</p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -24,15 +24,15 @@ export default function SettingsPage() {
             <User className="h-4 w-4" />
             Profile
           </button>
-          <button className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-bold text-gray-500 hover:bg-gray-50 transition-all text-left">
+          <button className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-bold text-gray-900 hover:bg-gray-400 transition-all text-left">
             <Bell className="h-4 w-4" />
             Notifications
           </button>
-          <button className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-bold text-gray-500 hover:bg-gray-50 transition-all text-left">
+          <button className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-bold text-gray-900 hover:bg-gray-400 transition-all text-left">
             <Shield className="h-4 w-4" />
             Privacy
           </button>
-          <button className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-bold text-gray-500 hover:bg-gray-50 transition-all text-left">
+          <button className="w-full flex items-center gap-3 px-4 py-3 rounded-2xl text-sm font-bold text-gray-900 hover:bg-gray-400 transition-all text-left">
             <Lock className="h-4 w-4" />
             Password
           </button>
@@ -40,29 +40,29 @@ export default function SettingsPage() {
 
         {/* Settings Content */}
         <div className="md:col-span-3 space-y-6">
-          <div className="bg-white rounded-3xl border border-gray-100 shadow-xl overflow-hidden">
-            <div className="p-8 border-b border-gray-50">
+          <div className="bg-white rounded-3xl border border-gray-400 shadow-xl overflow-hidden">
+            <div className="p-8 border-b border-gray-500">
               <h2 className="text-xl font-black text-gray-900 tracking-tight">Account Preferences</h2>
-              <p className="text-sm text-gray-500 font-medium mt-1">Basic settings for your account</p>
+              <p className="text-sm text-gray-900 font-medium mt-1">Basic settings for your account</p>
             </div>
             
             <div className="p-8 space-y-6">
-              <div className="flex items-center justify-between p-4 bg-gray-50/50 rounded-2xl border border-gray-50">
+              <div className="flex items-center justify-between p-4 bg-gray-300/60 rounded-2xl border border-gray-500">
                 <div>
                   <h4 className="text-sm font-bold text-gray-900">Email Notifications</h4>
-                  <p className="text-xs text-gray-500 font-medium">Receive updates about your applications via email</p>
+                  <p className="text-xs text-gray-900 font-medium">Receive updates about your applications via email</p>
                 </div>
                 <div className="h-6 w-11 bg-indigo-600 rounded-full relative cursor-pointer shadow-inner">
                   <div className="absolute right-1 top-1 h-4 w-4 bg-white rounded-full shadow-sm" />
                 </div>
               </div>
 
-              <div className="flex items-center justify-between p-4 bg-gray-50/50 rounded-2xl border border-gray-50">
+              <div className="flex items-center justify-between p-4 bg-gray-300/60 rounded-2xl border border-gray-500">
                 <div>
                   <h4 className="text-sm font-bold text-gray-900">Public Profile</h4>
-                  <p className="text-xs text-gray-500 font-medium">Make your profile visible to all employers</p>
+                  <p className="text-xs text-gray-900 font-medium">Make your profile visible to all employers</p>
                 </div>
-                <div className="h-6 w-11 bg-gray-200 rounded-full relative cursor-pointer shadow-inner">
+                <div className="h-6 w-11 bg-gray-400 rounded-full relative cursor-pointer shadow-inner">
                   <div className="absolute left-1 top-1 h-4 w-4 bg-white rounded-full shadow-sm" />
                 </div>
               </div>
@@ -92,3 +92,4 @@ export default function SettingsPage() {
     </div>
   );
 }
+

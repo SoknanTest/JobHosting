@@ -16,7 +16,7 @@ export default async function Footer() {
               <BriefcaseBusiness className="h-6 w-6" />
               <span>JobCambodia</span>
             </Link>
-            <p className="mt-4 text-sm text-gray-500 leading-relaxed">
+            <p className="mt-4 text-sm text-gray-900 leading-relaxed">
               Connecting Cambodia's best talent with top companies.
               Free for seekers and employers.
             </p>
@@ -29,17 +29,17 @@ export default async function Footer() {
             </h3>
             <ul className="mt-4 space-y-4">
               <li>
-                <Link href="/" className="text-sm text-gray-600 hover:text-indigo-600 font-medium transition-colors">
+                <Link href="/" className="text-sm text-gray-900 hover:text-indigo-600 font-medium transition-colors">
                   {t('home')}
                 </Link>
               </li>
               <li>
-                <Link href="/jobs" className="text-sm text-gray-600 hover:text-indigo-600 font-medium transition-colors">
+                <Link href="/jobs" className="text-sm text-gray-900 hover:text-indigo-600 font-medium transition-colors">
                   {t('jobs')}
                 </Link>
               </li>
               <li>
-                <Link href="/login" className="text-sm text-gray-600 hover:text-indigo-600 font-medium transition-colors">
+                <Link href="/login" className="text-sm text-gray-900 hover:text-indigo-600 font-medium transition-colors">
                   {t('login')}
                 </Link>
               </li>
@@ -52,15 +52,15 @@ export default async function Footer() {
               Contact
             </h3>
             <ul className="mt-4 space-y-4">
-              <li className="flex items-center gap-2 text-sm text-gray-600">
+              <li className="flex items-center gap-2 text-sm text-gray-900">
                 <Mail className="h-4 w-4" />
                 <span>support@jobcambodia.com</span>
               </li>
-              <li className="flex items-center gap-2 text-sm text-gray-600">
+              <li className="flex items-center gap-2 text-sm text-gray-900">
                 <Phone className="h-4 w-4" />
                 <span>+855 12 345 678</span>
               </li>
-              <li className="flex items-center gap-2 text-sm text-gray-600">
+              <li className="flex items-center gap-2 text-sm text-gray-900">
                 <MapPin className="h-4 w-4" />
                 <span>Phnom Penh, Cambodia</span>
               </li>
@@ -72,7 +72,7 @@ export default async function Footer() {
             <h3 className="text-sm font-semibold text-gray-900 uppercase tracking-wider">
               Legal
             </h3>
-            <ul className="mt-4 space-y-4 text-sm text-gray-600">
+            <ul className="mt-4 space-y-4 text-sm text-gray-900">
               <li>Privacy Policy</li>
               <li>Terms of Service</li>
               <li>Cookies Policy</li>
@@ -80,10 +80,12 @@ export default async function Footer() {
           </div>
         </div>
         
-        <div className="mt-12 border-t pt-8 text-center text-sm text-gray-500">
+        <div className="mt-12 border-t pt-8 text-center text-sm text-gray-900">
           <p>© {currentYear} JobCambodia Platform. All rights reserved.</p>
         </div>
       </div>
     </footer>
   );
 }
+
+

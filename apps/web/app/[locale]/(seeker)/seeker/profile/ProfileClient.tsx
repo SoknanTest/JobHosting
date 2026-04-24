@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useGetMeQuery, useUpdateProfileMutation, useUpdateAvatarMutation, useUpdateCvMutation } from '@/store/api/usersApi';
 import { useUploadImageMutation, useUploadPdfMutation } from '@/store/api/uploadApi';
@@ -106,7 +106,7 @@ export default function ProfileClient() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-      <div className="bg-white rounded-3xl border border-gray-100 shadow-xl shadow-indigo-50/50 overflow-hidden">
+      <div className="bg-white rounded-3xl border border-gray-400 shadow-xl shadow-indigo-50/50 overflow-hidden">
         {/* Header/Cover Mock */}
         <div className="h-32 bg-gradient-to-r from-indigo-600 to-purple-600" />
         
@@ -138,7 +138,7 @@ export default function ProfileClient() {
             {!isEditing && (
               <button 
                 onClick={handleEdit}
-                className="flex items-center gap-2 bg-white border-2 border-gray-100 px-4 py-2 rounded-xl text-sm font-bold hover:border-indigo-600 hover:text-indigo-600 transition-all shadow-sm"
+                className="flex items-center gap-2 bg-white border-2 border-gray-400 px-4 py-2 rounded-xl text-sm font-bold hover:border-indigo-600 hover:text-indigo-600 transition-all shadow-sm"
               >
                 <Pencil className="h-4 w-4" />
                 {commonT('edit')}
@@ -150,43 +150,43 @@ export default function ProfileClient() {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">{authT('firstName')}</label>
+                  <label className="block text-sm font-medium text-gray-900 mb-1">{authT('firstName')}</label>
                   <input
                     type="text"
                     value={formData.firstName}
                     onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                    className="w-full rounded-xl border-gray-200 focus:border-indigo-500 focus:ring-indigo-500"
+                    className="w-full rounded-xl border-gray-500 focus:border-indigo-500 focus:ring-indigo-500"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">{authT('lastName')}</label>
+                  <label className="block text-sm font-medium text-gray-900 mb-1">{authT('lastName')}</label>
                   <input
                     type="text"
                     value={formData.lastName}
                     onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                    className="w-full rounded-xl border-gray-200 focus:border-indigo-500 focus:ring-indigo-500"
+                    className="w-full rounded-xl border-gray-500 focus:border-indigo-500 focus:ring-indigo-500"
                     required
                   />
                 </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">{commonT('location')}</label>
+                <label className="block text-sm font-medium text-gray-900 mb-1">{commonT('location')}</label>
                 <input
                   type="text"
                   value={formData.location}
                   onChange={(e) => setFormData({ ...formData, location: e.target.value })}
-                  className="w-full rounded-xl border-gray-200 focus:border-indigo-500 focus:ring-indigo-500"
+                  className="w-full rounded-xl border-gray-500 focus:border-indigo-500 focus:ring-indigo-500"
                   placeholder="e.g. Phnom Penh, Cambodia"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Bio</label>
+                <label className="block text-sm font-medium text-gray-900 mb-1">Bio</label>
                 <textarea
                   value={formData.bio}
                   onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
                   rows={4}
-                  className="w-full rounded-xl border-gray-200 focus:border-indigo-500 focus:ring-indigo-500"
+                  className="w-full rounded-xl border-gray-500 focus:border-indigo-500 focus:ring-indigo-500"
                   placeholder="Tell us about yourself..."
                 />
               </div>
@@ -194,7 +194,7 @@ export default function ProfileClient() {
                 <button
                   type="button"
                   onClick={() => setIsEditing(false)}
-                  className="px-6 py-2 text-sm font-bold text-gray-600 hover:bg-gray-50 rounded-lg"
+                  className="px-6 py-2 text-sm font-bold text-gray-900 hover:bg-gray-400 rounded-lg"
                 >
                   {commonT('cancel')}
                 </button>
@@ -217,13 +217,13 @@ export default function ProfileClient() {
                 <p className="text-lg text-indigo-600 font-bold">{authT(user.role.toLowerCase() as any)}</p>
               </div>
 
-              <div className="mt-6 flex flex-wrap gap-6 text-sm text-gray-500 font-medium">
+              <div className="mt-6 flex flex-wrap gap-6 text-sm text-gray-900 font-medium">
                 <div className="flex items-center gap-2">
-                  <MapPin className="h-4 w-4 text-gray-400" />
+                  <MapPin className="h-4 w-4 text-gray-900" />
                   <span>{user.profile?.location || profileT('noLocation')}</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Mail className="h-4 w-4 text-gray-400" />
+                  <Mail className="h-4 w-4 text-gray-900" />
                   <span>{user.email}</span>
                 </div>
               </div>
@@ -232,7 +232,7 @@ export default function ProfileClient() {
                 <div className="md:col-span-2 space-y-8">
                   <section>
                     <h2 className="text-xl font-black text-gray-900 mb-4 tracking-tight">{profileT('aboutMe')}</h2>
-                    <p className="text-gray-600 leading-relaxed">
+                    <p className="text-gray-900 leading-relaxed">
                       {user.profile?.bio || profileT('noBio')}
                     </p>
                   </section>
@@ -242,19 +242,19 @@ export default function ProfileClient() {
                     <div className="flex flex-wrap gap-2">
                       {user.profile?.skills && user.profile.skills.length > 0 ? (
                         user.profile.skills.map((skill: string) => (
-                          <span key={skill} className="px-3 py-1 bg-gray-50 text-gray-600 rounded-full text-xs font-medium border border-gray-100">
+                          <span key={skill} className="px-3 py-1 bg-gray-300 text-gray-900 rounded-full text-xs font-medium border border-gray-400">
                             {skill}
                           </span>
                         ))
                       ) : (
-                        <p className="text-sm text-gray-400 font-medium italic">{profileT('noSkills')}</p>
+                        <p className="text-sm text-gray-900 font-medium italic">{profileT('noSkills')}</p>
                       )}
                     </div>
                   </section>
                 </div>
 
                 <div className="space-y-8">
-                  <section className="bg-indigo-50/50 p-6 rounded-2xl border border-indigo-100">
+                  <section className="bg-indigo-100/50 p-6 rounded-2xl border border-indigo-100">
                     <h2 className="text-sm font-black text-indigo-900 uppercase tracking-widest mb-4">{profileT('resumeCv')}</h2>
                     {user.profile?.cvUrl ? (
                       <div className="space-y-3">
@@ -267,7 +267,7 @@ export default function ProfileClient() {
                               <a href={user.profile.cvUrl} target="_blank" rel="noopener noreferrer" className="text-sm font-bold text-gray-900 truncate block hover:text-indigo-600">
                                 {profileT('viewCv')}
                               </a>
-                              <p className="text-[10px] text-gray-400 uppercase font-black tracking-tighter">
+                              <p className="text-[10px] text-gray-900 uppercase font-black tracking-tighter">
                                 {user.profile.updatedAt ? profileT('updated', { date: new Date(user.profile.updatedAt).toLocaleDateString() }) : ''}
                               </p>
                             </div>
@@ -292,7 +292,7 @@ export default function ProfileClient() {
                         ) : (
                           <>
                             <FileText className="h-8 w-8 text-indigo-200 mb-2" />
-                            <p className="text-xs text-gray-500 font-medium mb-3">{profileT('noCv')}</p>
+                            <p className="text-xs text-gray-900 font-medium mb-3">{profileT('noCv')}</p>
                             <button className="flex items-center gap-1.5 text-xs font-bold text-indigo-600">
                               <Plus className="h-3 w-3" />
                               {profileT('uploadCv')}
@@ -311,3 +311,5 @@ export default function ProfileClient() {
     </div>
   );
 }
+
+

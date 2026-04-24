@@ -57,34 +57,34 @@ export default function JobForm({ initialData }: { initialData?: any }) {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-8 bg-white p-8 rounded-2xl border border-gray-400 shadow-sm">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="col-span-1 md:col-span-2">
-          <label className="block text-sm font-bold text-gray-700 mb-2">{t('title')}</label>
+          <label className="block text-sm font-bold text-gray-900 mb-2">{t('title')}</label>
           <input
             {...register('title')}
             placeholder={t('titlePlaceholder')}
-            className="w-full px-4 py-3 rounded-xl border border-gray-100 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-100 outline-none transition-all"
+            className="w-full px-4 py-3 rounded-xl border border-gray-400 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-100 outline-none transition-all"
           />
           {errors.title && <p className="mt-1 text-xs text-red-600 font-bold">{errors.title.message}</p>}
         </div>
 
         <div className="col-span-1 md:col-span-2">
-          <label className="block text-sm font-bold text-gray-700 mb-2">{t('description')}</label>
+          <label className="block text-sm font-bold text-gray-900 mb-2">{t('description')}</label>
           <textarea
             {...register('description')}
             rows={6}
             placeholder={t('descriptionPlaceholder')}
-            className="w-full px-4 py-3 rounded-xl border border-gray-100 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-100 outline-none transition-all resize-none"
+            className="w-full px-4 py-3 rounded-xl border border-gray-400 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-100 outline-none transition-all resize-none"
           />
           {errors.description && <p className="mt-1 text-xs text-red-600 font-bold">{errors.description.message}</p>}
         </div>
 
         <div>
-          <label className="block text-sm font-bold text-gray-700 mb-2">{t('type.label')}</label>
+          <label className="block text-sm font-bold text-gray-900 mb-2">{t('type.label')}</label>
           <select
             {...register('type')}
-            className="w-full px-4 py-3 rounded-xl border border-gray-100 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-100 outline-none transition-all"
+            className="w-full px-4 py-3 rounded-xl border border-gray-400 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-100 outline-none transition-all"
           >
             <option value="FULL_TIME">{t('type.fullTime')}</option>
             <option value="PART_TIME">{t('type.partTime')}</option>
@@ -94,10 +94,10 @@ export default function JobForm({ initialData }: { initialData?: any }) {
         </div>
 
         <div>
-          <label className="block text-sm font-bold text-gray-700 mb-2">{t('category')}</label>
+          <label className="block text-sm font-bold text-gray-900 mb-2">{t('category')}</label>
           <select
             {...register('category')}
-            className="w-full px-4 py-3 rounded-xl border border-gray-100 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-100 outline-none transition-all"
+            className="w-full px-4 py-3 rounded-xl border border-gray-400 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-100 outline-none transition-all"
           >
             <option value="Technology">Technology</option>
             <option value="Marketing">Marketing</option>
@@ -109,10 +109,10 @@ export default function JobForm({ initialData }: { initialData?: any }) {
         </div>
 
         <div>
-          <label className="block text-sm font-bold text-gray-700 mb-2">{commonT('location')}</label>
+          <label className="block text-sm font-bold text-gray-900 mb-2">{commonT('location')}</label>
           <select
             {...register('location')}
-            className="w-full px-4 py-3 rounded-xl border border-gray-100 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-100 outline-none transition-all"
+            className="w-full px-4 py-3 rounded-xl border border-gray-400 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-100 outline-none transition-all"
           >
             <option value="Phnom Penh">Phnom Penh</option>
             <option value="Siem Reap">Siem Reap</option>
@@ -123,40 +123,40 @@ export default function JobForm({ initialData }: { initialData?: any }) {
         </div>
 
         <div>
-          <label className="block text-sm font-bold text-gray-700 mb-2">{t('deadline')}</label>
+          <label className="block text-sm font-bold text-gray-900 mb-2">{t('deadline')}</label>
           <input
             {...register('deadline')}
             type="date"
-            className="w-full px-4 py-3 rounded-xl border border-gray-100 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-100 outline-none transition-all"
+            className="w-full px-4 py-3 rounded-xl border border-gray-400 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-100 outline-none transition-all"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-bold text-gray-700 mb-2">{t('salaryMin')}</label>
+          <label className="block text-sm font-bold text-gray-900 mb-2">{t('salaryMin')}</label>
           <input
             {...register('salaryMin', { valueAsNumber: true })}
             type="number"
             placeholder="e.g. 1000"
-            className="w-full px-4 py-3 rounded-xl border border-gray-100 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-100 outline-none transition-all"
+            className="w-full px-4 py-3 rounded-xl border border-gray-400 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-100 outline-none transition-all"
           />
         </div>
 
         <div>
-          <label className="block text-sm font-bold text-gray-700 mb-2">{t('salaryMax')}</label>
+          <label className="block text-sm font-bold text-gray-900 mb-2">{t('salaryMax')}</label>
           <input
             {...register('salaryMax', { valueAsNumber: true })}
             type="number"
             placeholder="e.g. 2000"
-            className="w-full px-4 py-3 rounded-xl border border-gray-100 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-100 outline-none transition-all"
+            className="w-full px-4 py-3 rounded-xl border border-gray-400 focus:border-indigo-600 focus:ring-2 focus:ring-indigo-100 outline-none transition-all"
           />
         </div>
       </div>
 
-      <div className="flex items-center justify-end gap-4 pt-6 border-t border-gray-50">
+      <div className="flex items-center justify-end gap-4 pt-6 border-t border-gray-400">
         <button
           type="button"
           onClick={() => router.back()}
-          className="px-6 py-3 rounded-xl text-sm font-bold text-gray-500 hover:bg-gray-50 transition-all"
+          className="px-6 py-3 rounded-xl text-sm font-bold text-gray-900 hover:bg-gray-400 transition-all"
         >
           {commonT('cancel')}
         </button>
@@ -172,3 +172,5 @@ export default function JobForm({ initialData }: { initialData?: any }) {
     </form>
   );
 }
+
+

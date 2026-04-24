@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useGetJobsQuery } from '@/store/api/jobsApi';
 import { Briefcase, Users, Eye, CheckCircle, PlusCircle, Loader2 } from 'lucide-react';
@@ -49,39 +49,39 @@ export default function EmployerDashboardClient() {
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-        <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex items-center gap-4">
+        <div className="bg-white p-6 rounded-xl border border-gray-400 shadow-sm flex items-center gap-4">
           <div className="h-12 w-12 bg-indigo-50 rounded-lg flex items-center justify-center text-indigo-600">
             <Briefcase className="h-6 w-6" />
           </div>
           <div>
-            <p className="text-sm text-gray-500 font-medium">Active Jobs</p>
+            <p className="text-sm text-gray-900 font-medium">Active Jobs</p>
             <h3 className="text-2xl font-bold text-gray-900">{stats.activeJobs}</h3>
           </div>
         </div>
-        <Link href="/employer/applicants" className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex items-center gap-4 hover:border-indigo-600 transition-all group">
+        <Link href="/employer/applicants" className="bg-white p-6 rounded-xl border border-gray-400 shadow-sm flex items-center gap-4 hover:border-indigo-600 transition-all group">
           <div className="h-12 w-12 bg-green-50 rounded-lg flex items-center justify-center text-green-600 group-hover:bg-green-600 group-hover:text-white transition-all">
             <Users className="h-6 w-6" />
           </div>
           <div>
-            <p className="text-sm text-gray-500 font-medium">Total Applicants</p>
+            <p className="text-sm text-gray-900 font-medium">Total Applicants</p>
             <h3 className="text-2xl font-bold text-gray-900">{stats.totalApplicants}</h3>
           </div>
         </Link>
-        <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex items-center gap-4">
+        <div className="bg-white p-6 rounded-xl border border-gray-400 shadow-sm flex items-center gap-4">
           <div className="h-12 w-12 bg-yellow-50 rounded-lg flex items-center justify-center text-yellow-600">
             <Eye className="h-6 w-6" />
           </div>
           <div>
-            <p className="text-sm text-gray-500 font-medium">Job Views</p>
+            <p className="text-sm text-gray-900 font-medium">Job Views</p>
             <h3 className="text-2xl font-bold text-gray-900">{stats.jobViews}</h3>
           </div>
         </div>
-        <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex items-center gap-4">
+        <div className="bg-white p-6 rounded-xl border border-gray-400 shadow-sm flex items-center gap-4">
           <div className="h-12 w-12 bg-blue-50 rounded-lg flex items-center justify-center text-blue-600">
             <CheckCircle className="h-6 w-6" />
           </div>
           <div>
-            <p className="text-sm text-gray-500 font-medium">Applications Hired</p>
+            <p className="text-sm text-gray-900 font-medium">Applications Hired</p>
             <h3 className="text-2xl font-bold text-gray-900">{stats.hired}</h3>
           </div>
         </div>
@@ -95,24 +95,24 @@ export default function EmployerDashboardClient() {
           </Link>
         </div>
         
-        <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-          <table className="min-w-full divide-y divide-gray-100">
-            <thead className="bg-gray-50">
+        <div className="bg-white rounded-xl border border-gray-400 shadow-sm overflow-hidden">
+          <table className="min-w-full divide-y divide-gray-400">
+            <thead className="bg-gray-300">
               <tr>
-                <th className="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Job Title</th>
-                <th className="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Applicants</th>
-                <th className="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">Status</th>
-                <th className="px-6 py-4 text-right text-xs font-bold text-gray-500 uppercase tracking-wider">Actions</th>
+                <th className="px-6 py-4 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">Job Title</th>
+                <th className="px-6 py-4 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">Applicants</th>
+                <th className="px-6 py-4 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">Status</th>
+                <th className="px-6 py-4 text-right text-xs font-bold text-gray-900 uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-gray-400">
               {activeJobs.map((job: any) => (
-                <tr key={job.id} className="hover:bg-gray-50 transition-colors">
+                <tr key={job.id} className="hover:bg-gray-400 transition-colors">
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="text-sm font-bold text-gray-900">{job.title}</div>
-                    <div className="text-xs text-gray-500 mt-0.5">Posted {new Date(job.createdAt).toLocaleDateString()}</div>
+                    <div className="text-xs text-gray-900 mt-0.5">Posted {new Date(job.createdAt).toLocaleDateString()}</div>
                   </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                     <span className="font-bold text-indigo-600">0</span> applicants
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap">
@@ -124,7 +124,7 @@ export default function EmployerDashboardClient() {
                     <Link href={`/employer/jobs/${job.id}/applicants`} className="text-indigo-600 hover:text-indigo-900 font-bold mr-4">
                       View Applicants
                     </Link>
-                    <Link href={`/employer/jobs/${job.id}/edit`} className="text-gray-400 hover:text-gray-600 font-bold">
+                    <Link href={`/employer/jobs/${job.id}/edit`} className="text-gray-600 hover:text-gray-900 font-bold">
                       Edit
                     </Link>
                   </td>
@@ -132,7 +132,7 @@ export default function EmployerDashboardClient() {
               ))}
               {activeJobs.length === 0 && (
                 <tr>
-                  <td colSpan={4} className="px-6 py-10 text-center text-gray-500 font-medium">
+                  <td colSpan={4} className="px-6 py-10 text-center text-gray-900 font-medium">
                     No active jobs yet. Post your first job to get started!
                   </td>
                 </tr>
@@ -144,3 +144,4 @@ export default function EmployerDashboardClient() {
     </div>
   );
 }
+

@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useGetJobQuery, useApplyToJobMutation } from '@/store/api/jobsApi';
 import { useGetMeQuery } from '@/store/api/usersApi';
@@ -58,7 +58,7 @@ export default function JobDetailClient({ id }: JobDetailClientProps) {
         : t('salaryNotSpecified');
 
   return (
-    <div className="bg-gray-50 min-h-screen pb-20">
+    <div className="bg-gray-300 min-h-screen pb-20">
       {/* Header Section */}
       <div className="bg-white border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -80,7 +80,7 @@ export default function JobDetailClient({ id }: JobDetailClientProps) {
                     {t(`type.${job.type.toLowerCase().replace('_', '')}` as any)}
                   </span>
                 </div>
-                <div className="mt-4 flex flex-wrap items-center gap-6 text-gray-500 font-medium">
+                <div className="mt-4 flex flex-wrap items-center gap-6 text-gray-900 font-medium">
                   <div className="flex items-center gap-2">
                     <Building2 className="h-5 w-5 text-indigo-600" />
                     <span className="text-gray-900">{job.company?.name}</span>
@@ -98,10 +98,10 @@ export default function JobDetailClient({ id }: JobDetailClientProps) {
             </div>
             
             <div className="flex items-center gap-4">
-              <button className="p-3 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl border transition-all">
+              <button className="p-3 text-gray-900 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl border transition-all">
                 <Bookmark className="h-5 w-5" />
               </button>
-              <button className="p-3 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl border transition-all">
+              <button className="p-3 text-gray-900 hover:text-indigo-600 hover:bg-indigo-50 rounded-xl border transition-all">
                 <Share2 className="h-5 w-5" />
               </button>
               
@@ -139,12 +139,12 @@ export default function JobDetailClient({ id }: JobDetailClientProps) {
                 <h2 className="text-xl font-bold text-gray-900 mb-4">{t('applyForJob', { title: job.title })}</h2>
                 <form onSubmit={handleApply} className="space-y-4">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">{t('coverNote')}</label>
+                    <label className="block text-sm font-medium text-gray-900 mb-2">{t('coverNote')}</label>
                     <textarea
                       value={coverNote}
                       onChange={(e) => setCoverNote(e.target.value)}
                       rows={4}
-                      className="w-full rounded-xl border-gray-200 focus:border-indigo-500 focus:ring-indigo-500 text-sm"
+                      className="w-full rounded-xl border-gray-500 focus:border-indigo-500 focus:ring-indigo-500 text-sm"
                       placeholder={t('coverNotePlaceholder')}
                     />
                   </div>
@@ -152,7 +152,7 @@ export default function JobDetailClient({ id }: JobDetailClientProps) {
                     <button
                       type="button"
                       onClick={() => setShowApplyForm(false)}
-                      className="px-6 py-2 text-sm font-bold text-gray-600 hover:bg-gray-50 rounded-lg transition-colors"
+                      className="px-6 py-2 text-sm font-bold text-gray-900 hover:bg-gray-400 rounded-lg transition-colors"
                     >
                       {commonT('cancel')}
                     </button>
@@ -169,23 +169,23 @@ export default function JobDetailClient({ id }: JobDetailClientProps) {
               </div>
             )}
 
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+            <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-400">
               <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
                 <Briefcase className="h-5 w-5 text-indigo-600" />
                 {t('description')}
               </h2>
-              <div className="prose prose-indigo max-w-none text-gray-600 leading-relaxed whitespace-pre-wrap">
+              <div className="prose prose-indigo max-w-none text-gray-900 leading-relaxed whitespace-pre-wrap">
                 {job.description}
               </div>
             </div>
 
             {job.company?.description && (
-              <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+              <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-400">
                 <h2 className="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
                   <Building2 className="h-5 w-5 text-indigo-600" />
                   {t('aboutCompany')}
                 </h2>
-                <p className="text-gray-600 leading-relaxed">
+                <p className="text-gray-900 leading-relaxed">
                   {job.company.description}
                 </p>
                 {job.company.website && (
@@ -204,7 +204,7 @@ export default function JobDetailClient({ id }: JobDetailClientProps) {
 
           {/* Sidebar */}
           <div className="space-y-8">
-            <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 sticky top-10">
+            <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-400 sticky top-10">
               <h2 className="text-xl font-bold text-gray-900 mb-6">{t('summary')}</h2>
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
@@ -212,7 +212,7 @@ export default function JobDetailClient({ id }: JobDetailClientProps) {
                     <DollarSign className="h-5 w-5 text-indigo-600" />
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-gray-500 uppercase tracking-wider">{t('salary')}</p>
+                    <p className="text-sm font-medium text-gray-900 uppercase tracking-wider">{t('salary')}</p>
                     <p className="text-gray-900 font-bold">{formattedSalary}</p>
                   </div>
                 </div>
@@ -222,7 +222,7 @@ export default function JobDetailClient({ id }: JobDetailClientProps) {
                     <Calendar className="h-5 w-5 text-indigo-600" />
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-gray-500 uppercase tracking-wider">{t('deadline')}</p>
+                    <p className="text-sm font-medium text-gray-900 uppercase tracking-wider">{t('deadline')}</p>
                     <p className="text-gray-900 font-bold">
                       {job.deadline ? new Date(job.deadline).toLocaleDateString() : t('noDeadline')}
                     </p>
@@ -234,7 +234,7 @@ export default function JobDetailClient({ id }: JobDetailClientProps) {
                     <Briefcase className="h-5 w-5 text-indigo-600" />
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-gray-500 uppercase tracking-wider">{t('category')}</p>
+                    <p className="text-sm font-medium text-gray-900 uppercase tracking-wider">{t('category')}</p>
                     <p className="text-gray-900 font-bold">{job.category}</p>
                   </div>
                 </div>
@@ -244,7 +244,7 @@ export default function JobDetailClient({ id }: JobDetailClientProps) {
                     <MapPin className="h-5 w-5 text-indigo-600" />
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-gray-500 uppercase tracking-wider">{commonT('location')}</p>
+                    <p className="text-sm font-medium text-gray-900 uppercase tracking-wider">{commonT('location')}</p>
                     <p className="text-gray-900 font-bold">{job.location}</p>
                   </div>
                 </div>
@@ -267,3 +267,5 @@ export default function JobDetailClient({ id }: JobDetailClientProps) {
     </div>
   );
 }
+
+

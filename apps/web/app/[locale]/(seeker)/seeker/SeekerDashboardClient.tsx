@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useGetMyApplicationsQuery } from '@/store/api/applicationsApi';
 import { useGetMeQuery } from '@/store/api/usersApi';
@@ -41,39 +41,39 @@ export default function SeekerDashboardClient() {
       <h1 className="text-3xl font-bold text-gray-900 mb-8">{t('dashboard')}</h1>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-        <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex items-center gap-4">
+        <div className="bg-white p-6 rounded-xl border border-gray-400 shadow-sm flex items-center gap-4">
           <div className="h-12 w-12 bg-indigo-50 rounded-lg flex items-center justify-center text-indigo-600">
             <Briefcase className="h-6 w-6" />
           </div>
           <div>
-            <p className="text-sm text-gray-500 font-medium">{jobT('appliedJobs')}</p>
+            <p className="text-sm text-gray-900 font-medium">{jobT('appliedJobs')}</p>
             <h3 className="text-2xl font-bold text-gray-900">{stats.applied}</h3>
           </div>
         </div>
-        <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex items-center gap-4">
+        <div className="bg-white p-6 rounded-xl border border-gray-400 shadow-sm flex items-center gap-4">
           <div className="h-12 w-12 bg-green-50 rounded-lg flex items-center justify-center text-green-600">
             <CheckCircle className="h-6 w-6" />
           </div>
           <div>
-            <p className="text-sm text-gray-500 font-medium">{jobT('accepted')}</p>
+            <p className="text-sm text-gray-900 font-medium">{jobT('accepted')}</p>
             <h3 className="text-2xl font-bold text-gray-900">{stats.accepted}</h3>
           </div>
         </div>
-        <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex items-center gap-4">
+        <div className="bg-white p-6 rounded-xl border border-gray-400 shadow-sm flex items-center gap-4">
           <div className="h-12 w-12 bg-yellow-50 rounded-lg flex items-center justify-center text-yellow-600">
             <Clock className="h-6 w-6" />
           </div>
           <div>
-            <p className="text-sm text-gray-500 font-medium">{jobT('pending')}</p>
+            <p className="text-sm text-gray-900 font-medium">{jobT('pending')}</p>
             <h3 className="text-2xl font-bold text-gray-900">{stats.pending}</h3>
           </div>
         </div>
-        <div className="bg-white p-6 rounded-xl border border-gray-100 shadow-sm flex items-center gap-4">
+        <div className="bg-white p-6 rounded-xl border border-gray-400 shadow-sm flex items-center gap-4">
           <div className="h-12 w-12 bg-blue-50 rounded-lg flex items-center justify-center text-blue-600">
             <MessageSquare className="h-6 w-6" />
           </div>
           <div>
-            <p className="text-sm text-gray-500 font-medium">{jobT('newMessages')}</p>
+            <p className="text-sm text-gray-900 font-medium">{jobT('newMessages')}</p>
             <h3 className="text-2xl font-bold text-gray-900">{stats.messages}</h3>
           </div>
         </div>
@@ -82,26 +82,26 @@ export default function SeekerDashboardClient() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-6">
           <h2 className="text-xl font-bold text-gray-900">{jobT('recentApplications')}</h2>
-          <div className="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
-            <table className="min-w-full divide-y divide-gray-100">
-              <thead className="bg-gray-50">
+          <div className="bg-white rounded-xl border border-gray-400 shadow-sm overflow-hidden">
+            <table className="min-w-full divide-y divide-gray-400">
+              <thead className="bg-gray-300">
                 <tr>
-                  <th className="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">{jobT('job')}</th>
-                  <th className="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">{jobT('company')}</th>
-                  <th className="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">{commonT('date')}</th>
-                  <th className="px-6 py-4 text-left text-xs font-bold text-gray-500 uppercase tracking-wider">{commonT('status')}</th>
+                  <th className="px-6 py-4 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">{jobT('job')}</th>
+                  <th className="px-6 py-4 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">{jobT('company')}</th>
+                  <th className="px-6 py-4 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">{commonT('date')}</th>
+                  <th className="px-6 py-4 text-left text-xs font-bold text-gray-900 uppercase tracking-wider">{commonT('status')}</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-100">
+              <tbody className="divide-y divide-gray-400">
                 {recentApplications.map((app) => {
                   if (!app.job) return null;
                   return (
-                  <tr key={app.id} className="hover:bg-gray-50 transition-colors">
+                  <tr key={app.id} className="hover:bg-gray-400 transition-colors">
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900">
                       <Link href={`/jobs/${app.job.id}`} className="hover:text-indigo-600">{app.job.title}</Link>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{app.job.company?.name || jobT('privateEmployer')}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{app.job.company?.name || jobT('privateEmployer')}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                       {new Date(app.createdAt).toLocaleDateString()}
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
@@ -119,7 +119,7 @@ export default function SeekerDashboardClient() {
                 })}
                 {recentApplications.length === 0 && (
                   <tr>
-                    <td colSpan={4} className="px-6 py-10 text-center text-gray-500 font-medium">
+                    <td colSpan={4} className="px-6 py-10 text-center text-gray-900 font-medium">
                       {jobT('noApplicationsYet')}
                     </td>
                   </tr>
@@ -140,11 +140,11 @@ export default function SeekerDashboardClient() {
               <div 
                 key={job.id} 
                 onClick={() => router.push(`/jobs/${job.id}`)}
-                className="bg-white p-4 rounded-xl border border-gray-100 shadow-sm hover:border-indigo-600 transition-all cursor-pointer group"
+                className="bg-white p-4 rounded-xl border border-gray-400 shadow-sm hover:border-indigo-600 transition-all cursor-pointer group"
               >
                 <h4 className="font-bold text-gray-900 text-sm group-hover:text-indigo-600 transition-colors">{job.title}</h4>
                 <p className="text-xs text-indigo-600 mt-1">{job.company?.name || jobT('privateEmployer')}</p>
-                <div className="flex items-center justify-between mt-3 text-[10px] text-gray-400 font-bold uppercase tracking-widest">
+                <div className="flex items-center justify-between mt-3 text-[10px] text-gray-900 font-bold uppercase tracking-widest">
                   <span>{job.location}</span>
                   <span>
                     {job.salaryMin && job.salaryMax 
@@ -155,7 +155,7 @@ export default function SeekerDashboardClient() {
               </div>
             ))}
             {recommendedJobs?.data.length === 0 && (
-              <p className="text-sm text-gray-500 italic">{jobT('noJobsFound')}</p>
+              <p className="text-sm text-gray-900 italic">{jobT('noJobsFound')}</p>
             )}
           </div>
           <Link href="/jobs" className="inline-block text-indigo-600 font-bold text-sm hover:underline">
@@ -166,3 +166,5 @@ export default function SeekerDashboardClient() {
     </div>
   );
 }
+
+

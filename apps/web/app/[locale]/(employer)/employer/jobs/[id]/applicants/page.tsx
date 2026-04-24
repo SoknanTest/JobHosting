@@ -1,4 +1,4 @@
-import { setRequestLocale } from 'next-intl/server';
+﻿import { setRequestLocale } from 'next-intl/server';
 import EmployerSidebar from '@/components/dashboard/EmployerSidebar';
 import { 
   Mail, 
@@ -56,23 +56,23 @@ export default async function JobApplicantsPage({
   ];
 
   return (
-    <div className="flex min-h-screen bg-gray-50/50">
+    <div className="flex min-h-screen bg-gray-300/50">
       <EmployerSidebar />
       
       <main className="flex-1 p-8">
         <div className="max-w-7xl mx-auto">
           <div className="mb-8">
-            <Link href="/employer/jobs" className="flex items-center gap-2 text-sm font-bold text-gray-500 hover:text-indigo-600 transition-colors mb-4">
+            <Link href="/employer/jobs" className="flex items-center gap-2 text-sm font-bold text-gray-900 hover:text-indigo-600 transition-colors mb-4">
               <ArrowLeft className="h-4 w-4" />
               Back to Jobs
             </Link>
             <h1 className="text-2xl font-bold text-gray-900">Applicants</h1>
-            <p className="text-gray-500 mt-1">Reviewing candidates for <span className="text-indigo-600 font-bold">Senior React Developer</span></p>
+            <p className="text-gray-900 mt-1">Reviewing candidates for <span className="text-indigo-600 font-bold">Senior React Developer</span></p>
           </div>
 
           <div className="grid grid-cols-1 gap-6">
             {applicants.map((applicant) => (
-              <div key={applicant.id} className="bg-white rounded-2xl border border-gray-100 shadow-sm overflow-hidden">
+              <div key={applicant.id} className="bg-white rounded-2xl border border-gray-400 shadow-sm overflow-hidden">
                 <div className="p-6 flex flex-col lg:flex-row gap-8">
                   <div className="flex-1">
                     <div className="flex items-center justify-between mb-4">
@@ -82,7 +82,7 @@ export default async function JobApplicantsPage({
                         </div>
                         <div>
                           <h3 className="text-lg font-bold text-gray-900">{applicant.name}</h3>
-                          <p className="text-sm text-gray-500 font-medium flex items-center gap-1.5">
+                          <p className="text-sm text-gray-900 font-medium flex items-center gap-1.5">
                             <Clock className="h-3.5 w-3.5" />
                             Applied on {applicant.appliedAt}
                           </p>
@@ -93,36 +93,36 @@ export default async function JobApplicantsPage({
                         applicant.status === 'ACCEPTED' ? "bg-green-50 text-green-700" :
                         applicant.status === 'REVIEWED' ? "bg-blue-50 text-blue-700" :
                         applicant.status === 'REJECTED' ? "bg-red-50 text-red-700" :
-                        "bg-gray-100 text-gray-600"
+                        "bg-gray-300 text-gray-900"
                       )}>
                         {applicant.status}
                       </span>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                      <div className="flex items-center gap-2 text-sm text-gray-600">
-                        <Mail className="h-4 w-4 text-gray-400" />
+                      <div className="flex items-center gap-2 text-sm text-gray-900">
+                        <Mail className="h-4 w-4 text-gray-900" />
                         {applicant.email}
                       </div>
-                      <div className="flex items-center gap-2 text-sm text-gray-600">
-                        <Phone className="h-4 w-4 text-gray-400" />
+                      <div className="flex items-center gap-2 text-sm text-gray-900">
+                        <Phone className="h-4 w-4 text-gray-900" />
                         {applicant.phone}
                       </div>
                     </div>
 
-                    <div className="bg-gray-50 p-4 rounded-xl border border-gray-100 mb-6">
-                      <h4 className="text-xs font-bold text-gray-400 uppercase tracking-widest mb-2">Cover Note</h4>
-                      <p className="text-sm text-gray-700 leading-relaxed italic">
+                    <div className="bg-gray-300 p-4 rounded-xl border border-gray-400 mb-6">
+                      <h4 className="text-xs font-bold text-gray-900 uppercase tracking-widest mb-2">Cover Note</h4>
+                      <p className="text-sm text-gray-900 leading-relaxed italic">
                         "{applicant.coverNote}"
                       </p>
                     </div>
 
                     <div className="flex items-center gap-3">
-                      <button className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-100 rounded-xl text-xs font-bold text-gray-700 hover:bg-gray-50 transition-all shadow-sm">
+                      <button className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-400 rounded-xl text-xs font-bold text-gray-900 hover:bg-gray-400 transition-all shadow-sm">
                         <Download className="h-4 w-4" />
                         Download CV
                       </button>
-                      <button className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-100 rounded-xl text-xs font-bold text-gray-700 hover:bg-gray-50 transition-all shadow-sm">
+                      <button className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-400 rounded-xl text-xs font-bold text-gray-900 hover:bg-gray-400 transition-all shadow-sm">
                         <ExternalLink className="h-4 w-4" />
                         View Profile
                       </button>
@@ -134,7 +134,7 @@ export default async function JobApplicantsPage({
                       <CheckCircle className="h-4 w-4" />
                       Accept
                     </button>
-                    <button className="w-full flex items-center justify-center gap-2 py-3 bg-white text-gray-700 border border-gray-100 rounded-xl text-sm font-bold hover:bg-gray-50 transition-all shadow-sm">
+                    <button className="w-full flex items-center justify-center gap-2 py-3 bg-white text-gray-900 border border-gray-400 rounded-xl text-sm font-bold hover:bg-gray-400 transition-all shadow-sm">
                       <Clock className="h-4 w-4" />
                       Shortlist
                     </button>
@@ -152,3 +152,5 @@ export default async function JobApplicantsPage({
     </div>
   );
 }
+
+

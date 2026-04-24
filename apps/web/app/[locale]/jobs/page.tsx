@@ -1,4 +1,4 @@
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+﻿import { getTranslations, setRequestLocale } from 'next-intl/server';
 import JobsListClient from './JobsListClient';
 import { JobType } from '@shared/types';
 
@@ -23,7 +23,7 @@ export default async function JobsPage({
           <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">
             {t('jobs')}
           </h1>
-          <p className="mt-2 text-gray-600">
+          <p className="mt-2 text-gray-900">
             {jobT('browseSubtitle')}
           </p>
         </div>
@@ -39,3 +39,4 @@ export default async function JobsPage({
     </div>
   );
 }
+
